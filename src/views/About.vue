@@ -1,5 +1,21 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <navigation />
+    <h1>Past Orders</h1>
+    <orders />
   </div>
 </template>
+
+<script>
+  import Orders from '@/components/Orders.vue';
+  import Navigation from '@/components/Navigation.vue';
+
+  export default {
+    name: 'About',
+
+    components: {
+      Navigation,
+      Orders
+    }
+  }
+</script>

@@ -1,0 +1,113 @@
+.checkout {
+  width: 80%;
+  margin: 0 auto;
+
+  .items {
+
+    .items__list {
+      //display: flex;
+      .checkout__header {
+        background-color: $primary-turquoise;
+        color: $primary-turquoise-dark;
+        justify-self: stretch;
+        margin-top: 1em;
+        font-size: 2em;
+        font-weight: 700;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        border-top-left-radius: .5em;
+        border-top-right-radius: .5em;
+      }
+
+      ul {
+        li {
+          display: grid;
+          grid-template-columns: auto 1fr 1fr;
+          justify-items: left;
+          align-items: center;
+          grid-gap: 1em;
+        }
+
+        .total__amount {
+          font-size: 1.5em;
+          border-top: 1px solid $primary-turquoise;
+          //border-bottom: 5px solid $primary-turquoise;
+          color: $secondary-cyclamen;
+        }
+      }
+    }
+
+    form {
+      display: grid;
+      justify-items: center;
+  
+      .checkout__header {
+        background-color: $primary-turquoise;
+        color: $primary-turquoise-dark;
+        justify-self: stretch;
+        margin-top: 1em;
+        margin-bottom: .5em;
+        font-size: 2em;
+        font-weight: 700;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+      }
+  
+      .input__group {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        align-items: baseline;
+  
+        input {
+          font-family: $font-code;
+          font-size: 1.2em;
+          font-weight: 600;
+          padding: .5em;
+          margin: .5em 0;
+          background-color: transparent;
+          border-radius: .2em;
+          border: 2px solid $primary-turquoise;
+        }
+  
+        input:hover, input:active, input:focus {
+          background-color: #ffffff;
+          -webkit-box-shadow: 0px 2px 3px 0px rgba(35, 89, 102,0.75);
+          -moz-box-shadow: 0px 2px 3px 0px rgba(35, 89, 102,0.75);
+          box-shadow: 0px 0px 2px 0px rgba(35, 89, 102,0.75);
+        }
+  
+        label {
+          font-size: 1em;
+        }
+      }
+  
+      hr {
+/*         border: 1px solid $primary-turquoise;
+        justify-self: stretch;
+        border-bottom-left-radius: .5em;
+        border-bottom-right-radius: .5em;
+        margin: 1em 0; */
+
+        border: 1px solid #51cbe9;
+        border-top: none;
+        justify-self: stretch;
+        border-bottom-left-radius: .5em;
+        border-bottom-right-radius: .5em;
+        margin: .5em 0 1em 0;
+        height: 1em;
+      }
+      
+      button {
+        //border: 2px solid $orange-main;
+      }
+    }
+  }
+
+  .order__info {
+    margin: 2em;
+
+    h3 {
+      font-size: 2em;
+    }
+  }
+}
