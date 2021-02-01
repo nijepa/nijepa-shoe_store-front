@@ -67,6 +67,7 @@
           background-color: transparent;
           border-radius: .2em;
           border: 2px solid $primary-turquoise;
+          min-width: 15em;
         }
   
         input:hover, input:active, input:focus {
@@ -74,6 +75,7 @@
           -webkit-box-shadow: 0px 2px 3px 0px rgba(35, 89, 102,0.75);
           -moz-box-shadow: 0px 2px 3px 0px rgba(35, 89, 102,0.75);
           box-shadow: 0px 0px 2px 0px rgba(35, 89, 102,0.75);
+          //border: 2px solid $primary-turquoise-dark;
         }
   
         label {
@@ -109,5 +111,11 @@
     h3 {
       font-size: 2em;
     }
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .checkout {
+    width: 95%;
   }
 }
