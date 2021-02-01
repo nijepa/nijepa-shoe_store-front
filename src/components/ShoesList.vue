@@ -94,12 +94,14 @@
   import { mapActions } from 'vuex';
   import { updateToken } from '../store/local_storage';
   import cartQtu from '../mixins/cartQtu';
+  import imageUrl from '../mixins/imageUrl';
 
   export default {
     name: 'ShoesList',
 
     mixins: [
-      cartQtu
+      cartQtu,
+      imageUrl
     ],
 
     computed: {
@@ -126,10 +128,6 @@
 
       hoverDel(idx) {
         this.idx = idx;
-      },
-
-      getJpgUrl(pic) {
-        return require('../assets/' + pic + '.jpg')
       },
     },
 

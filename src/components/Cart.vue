@@ -79,10 +79,6 @@
           this.enableCheckout();
         }
       },
-
-      getJpgUrl(pic) {
-        return require('../assets/' + pic + '.jpg')
-      },
     },
 
     async mounted() {

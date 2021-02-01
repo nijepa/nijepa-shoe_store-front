@@ -41,6 +41,7 @@
 <script>
   import Loading from '@/components/utils/Loading.vue';
   import loadingM from '../mixins/loading';
+  import imageUrl from '../mixins/imageUrl';
 
   export default {
     name: 'Orders',
@@ -50,7 +51,8 @@
     },
 
     mixins: [
-      loadingM
+      loadingM,
+      imageUrl
     ],
 
     data() {
@@ -72,10 +74,6 @@
       getQtu(items) {
         return items.reduce((a, {qtu}) => a + Number(qtu), 0);
       },
-
-      getJpgUrl(pic) {
-        return require('../assets/' + pic + '.jpg')
-      },  
     },
 
     filters: {

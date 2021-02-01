@@ -53,6 +53,7 @@
   import { updateToken } from '../store/local_storage';
   import Loading from '@/components/utils/Loading.vue';
   import loadingM from '../mixins/loading';
+  import imageUrl from '../mixins/imageUrl';
 
   export default {
     name: 'Shoes',
@@ -66,7 +67,8 @@
     },
 
     mixins: [
-      loadingM
+      loadingM,
+      imageUrl
     ],
 
     data() {
@@ -100,10 +102,6 @@
 
       addToCart(item) {
         this.fetchCart(updateToken(item, 1));
-      },
-
-      getJpgUrl(pic) {
-        return require('../assets/' + pic + '.jpg')
       },
 
       setPage() {
