@@ -64,6 +64,32 @@
   }
 }
 
+.load__more {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  cursor: pointer;
+
+  svg {
+    path {
+      transition: all .4s ease-in-out;
+      fill: $primary-turquoise-dark;
+    }
+    polygon {
+      fill: $primary-turquoise;
+    }
+  }
+}
+
+.load__more:hover svg {
+  path {
+    fill: $primary-turquoise-dark;
+  }
+  polygon {
+    fill: $secondary-cyclamen;
+  }
+}
+
 @media only screen and (max-width: 1279px) {
   .shoe__list {
     grid-template-columns: repeat(2, 1fr);

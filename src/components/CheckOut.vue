@@ -10,14 +10,16 @@
             <div class="checkout__header">
               order summary
             </div>
+
             <shoes-list />
-            <!-- <h3>Total : {{ totalAmount }} &euro;</h3> -->
+
           </div>
           
           <form @submit.prevent="saveOrder()">
             <div class="checkout__header">
               customer info
             </div>
+
             <div class="input__group">
               <label for="name">Name</label>
               <input type="text" name="name" id="name" required
@@ -28,7 +30,8 @@
             </div>
             <hr>
 
-            <button v-if="!orderPlaced" :disabled="getCart.length ? false : true">
+            <button v-if="!orderPlaced" 
+                    :disabled="getCart.length ? false : true">
               save order
             </button>
           </form>
@@ -36,9 +39,13 @@
         
         <div v-else class="order__info">
           <h3>Your order is placed successfully!</h3>
-          <button @click="goHome">continue shopping</button>
+          <button @click="goHome">
+            continue shopping
+          </button>
           or 
-          <router-link to="/about" tag="button">View Your Past Orders</router-link>
+          <router-link to="/about" tag="button">
+            View Your Past Orders
+          </router-link>
         </div>
       </section>
 
@@ -51,6 +58,7 @@
   import { mapGetters, mapActions } from 'vuex';
   import Loading from '@/components/utils/Loading.vue';
   import loadingM from '../mixins/loading';
+  import cartQtu from '../mixins/cartQtu';
 
 
   export default {
@@ -62,7 +70,8 @@
     },
 
     mixins: [
-      loadingM
+      loadingM,
+      cartQtu
     ],
 
     data() {
@@ -76,16 +85,7 @@
     },
 
     computed: {
-      ...mapGetters([ 'getCart',
-                      'getCheckout' ]),
-/*       totalQty: function () {
-        return this.getCart.reduce((a, {qtu}) => a + Number(qtu), 0);
-      },
-
-      totalAmount: function () {
-        return this.getCart.reduce((a, {qtu, price}) => 
-          Math.round(((a + (qtu * price)) + Number.EPSILON) * 100) / 100, 0);
-      } */
+      ...mapGetters([ 'getCheckout' ]),
     },
 
     methods: {
@@ -114,8 +114,6 @@
         localStorage.setItem('shoe_store_orders', JSON.stringify(orders));
         this.cartClear();
         this.orderPlaced = true;
-        //this.setLoadingState(true);
-        //this.disableCheckout();
       },
 
       clearFields() {
@@ -135,9 +133,5 @@
     created() {
       this.setLoadingState(true);
     }
-
   }
 </script>
-
-<style>
-</style>

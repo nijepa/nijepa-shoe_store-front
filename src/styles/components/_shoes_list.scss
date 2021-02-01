@@ -32,6 +32,23 @@
 
     svg {
       cursor: pointer;
+      .svg_body, polygon {
+        transition: all .4s ease-in-out;
+        fill: $primary-turquoise;
+      }
+      path {
+        transition: all .4s ease-in-out;
+        fill: $primary-turquoise-dark;
+      }
+    }
+    
+    svg:hover {
+      .svg_body, polygon {
+        fill: $secondary-cyclamen;
+      }
+      path {
+        fill: $primary-turquoise-dark;
+      }
     }
 
     .del__btn {

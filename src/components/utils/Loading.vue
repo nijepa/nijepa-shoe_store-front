@@ -29,3 +29,4 @@
   .loading__text {
     text-align: center;
   }
+</style>

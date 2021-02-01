@@ -85,25 +85,28 @@
 
     </li>
 
-    <h3 class="total__amount">Total : {{ totalAmount }} &euro;</h3>
+    <h3 class="total__amount">Total : {{ totalQty + ' pcs. : ' + totalAmount }} &euro;</h3>
 
   </ul>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
   import { updateToken } from '../store/local_storage';
+  import cartQtu from '../mixins/cartQtu';
 
   export default {
     name: 'ShoesList',
 
-    computed: {
-      ...mapGetters([ 'getCart' ]),
+    mixins: [
+      cartQtu
+    ],
 
+    computed: {
       totalAmount: function () {
         return this.getCart.reduce((a, {qtu, price}) => 
           Math.round(((a + (qtu * price)) + Number.EPSILON) * 100) / 100, 0);
-      }
+      },
     },
 
     data() {
@@ -136,25 +139,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  svg {
-    .svg_body, polygon {
-      transition: all .4s ease-in-out;
-      fill: $primary-turquoise;
-    }
-    path {
-      transition: all .4s ease-in-out;
-      fill: $primary-turquoise-dark;
-    }
-  }
-  
-  svg:hover {
-    .svg_body, polygon {
-      fill: $secondary-cyclamen;
-    }
-    path {
-      fill: $primary-turquoise-dark;
-    }
-  }
-</style>

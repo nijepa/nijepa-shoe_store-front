@@ -19,9 +19,25 @@ nav {
     display: flex;
     align-items: center;
     column-gap: 1em;
-    
+
     svg {
       cursor: pointer;
+      path {
+        transition: all .4s ease-in-out;
+        fill: $primary-turquoise;
+      }
+      .svg_body {
+        fill: $primary-turquoise-dark;
+      }
+    }
+    
+    svg:hover {
+      path {
+        fill: $secondary-cyclamen;
+      }
+      .svg_body {
+        fill: $primary-turquoise-dark;
+      }
     }
 
     h1 {
@@ -30,6 +46,7 @@ nav {
       //letter-spacing: .1em;
       text-transform: uppercase;
       color: $secondary-cyclamen;
+      font-family: $font-brand;
     }
   }
 

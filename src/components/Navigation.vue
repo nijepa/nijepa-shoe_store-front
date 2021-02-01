@@ -147,23 +147,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  svg {
-    path {
-      transition: all .4s ease-in-out;
-      fill: $primary-turquoise;
-    }
-    .svg_body {
-      fill: $primary-turquoise-dark;
-    }
-  }
-  svg:hover {
-    path {
-      fill: $secondary-cyclamen;
-    }
-    .svg_body {
-      fill: $primary-turquoise-dark;
-    }
-  }
-</style>
