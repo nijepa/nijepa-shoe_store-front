@@ -42,11 +42,6 @@ function updateToken(data, type) {
 	}
 	return cartItems;
 }
-/* function updateToken(data) {
-	const savedCred = JSON.parse(localStorage.getItem('shoe_store'));
-	savedCred.user = data;
-	localStorage.setItem('shoe_store', JSON.stringify(savedCred));
-} */
 
 export {
 	saveToken,

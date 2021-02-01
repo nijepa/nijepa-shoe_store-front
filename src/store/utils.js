@@ -1,6 +1,5 @@
 const  state = {
   loading: true,
-  inputType: '',
   errors: []
 };
 

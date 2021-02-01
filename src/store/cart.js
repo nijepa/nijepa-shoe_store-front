@@ -35,11 +35,7 @@ const actions = {
 
   initialState({ commit }) {
     const cartNotEmpty = ls.getToken();
-    if (cartNotEmpty) {
-      commit('setCart', cartNotEmpty);
-    } else {
-      //commit('clearCart');
-    }
+    if (cartNotEmpty) { commit('setCart', cartNotEmpty); }
   },
 
   async fetchCart ({ commit }, cartData) {

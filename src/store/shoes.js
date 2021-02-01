@@ -1,8 +1,5 @@
 import axios from 'axios';
-const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
-// import apiClient from './api_client';
-//import router from '../router';
-
+const URL = process.env.VUE_APP_BACKEND_URL;
 
 const  state = {
   shoe: {},
@@ -16,7 +13,7 @@ const getters = {
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
-const  mutations = {
+const mutations = {
 
   setShoes: (state, shoes) => (state.shoes = shoes),
 
@@ -28,23 +25,23 @@ const  mutations = {
     state.shoe = {};
   },
 
-/*   addLanguage(state, text) {
-    state.languages = [text, ...state.expenses]
+  addShoe(state, newShoe) {
+    state.shoes = [newShoe, ...state.shoes]
   },
 
-  updateLanguage(state, language) {
-    state.languages = [
-      ...state.languages.map(item => 
-          item._id !== language._id ? item : {...item, ...language}
+  updateShoe(state, updatedShoe) {
+    state.shoes = [
+      ...state.shoes.map(item => 
+          item.id !== updatedShoe.id ? item : {...item, ...updatedShoe}
       )
     ] 
   },
 
-  deleteLanguage (state, id) {
-    state.languages = [
-      ...state.languages.filter((item) => item._id !== id)
+  deleteShoe (state, id) {
+    state.shoes = [
+      ...state.shoes.filter((item) => item.id !== id)
     ];
-  }, */
+  }, 
 };
 
 /* -------------------------------------- ACTIONS -------------------------------------- */
@@ -65,11 +62,10 @@ const actions = {
     await commit('setShoe', response);
   },
 
-  /* async languageAdd({commit},languageData) {
-    await axios.post(URL + 'expenses', expenseData)
+  async shoeAdd({ commit }, shoeData) {
+    await axios.post(URL + 'shoes/', shoeData)
       .then((response) => {
-        commit('addExpense', response.data.expense);
-        //router.push("/dashboard")
+        commit('addShoe', response.data.shoe);
       })
       .catch((error) => {
         if (error.response) {
@@ -80,11 +76,10 @@ const actions = {
       })
   },
 
-  async expenseUpdate({commit}, expenseData) {
-    await axios.put(URL + 'expenses/' + expenseData._id, expenseData)
+  async shoeUpdate({ commit }, shoeData) {
+    await axios.put(URL + 'shoes/' + shoeData.id, shoeData)
       .then((response) => {
-        commit('updateExpense', response.data);
-        //router.push("/dashboard");
+        commit('updateShoe', response.data);
       })
       .catch((error) => {
         if (error.response) {
@@ -95,10 +90,10 @@ const actions = {
       })
   },
 
-  async expenseDelete({commit}, expenseData) {
-    await axios.delete(URL + 'expenses/' + expenseData._id, expenseData)
+  async shoeDelete({ commit }, shoeData) {
+    await axios.delete(URL + 'shoes/' + shoeData.id, shoeData)
       .then((response) => {
-        commit('deleteExpense', response.data._id)
+        commit('deleteShoe', response.data.id)
       })
       .catch((error) => {
         if (error.response) {
@@ -107,7 +102,7 @@ const actions = {
           commit('setErrors', error);
         }
       })
-  }, */
+  },
 
   async shoeClear({commit}) {
     commit('clearShoe');
