@@ -1,6 +1,8 @@
 <template>
   <div class="">
-    <img :src="getGifUrl()" alt="" class="loading">
+    <img :src="getGifUrl()" 
+          alt="loading" 
+          class="loading">
     <p class="loading__text">loading ...</p> 
   </div>
 </template>

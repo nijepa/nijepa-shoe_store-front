@@ -3,7 +3,7 @@
     <!-- <h1>{{ msg }}</h1> -->
     <transition name="fall" mode="out-in">
 
-      <loading pic="loading" v-if="loadingState" key="1" />
+      <loading v-if="loadingState" key="1" pic="loading" />
 
       <div v-else :key="2" class="shoes__container">
         <div  class="shoe__list" >

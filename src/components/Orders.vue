@@ -2,7 +2,7 @@
   <section class="orders__list">
     <transition name="fall" mode="out-in">
 
-      <loading pic="loading" v-if="loadingState" key="1" />
+      <loading v-if="loadingState" key="1" pic="loading" />
 
       <div v-else :key="2" class="order__items">
         <div v-for="(order, index) in orders" :key="index" class="order__item">
@@ -29,7 +29,7 @@
           <div class="order__totals">
             <h3>Total : </h3>
             <h3 class="qtu__total">{{ getQtu(order.items) }}</h3>
-            <h3 class="amount__total">{{ getAmount(order.items) }}</h3>
+            <h3 class="amount__total">{{ getAmount(order.items).toLocaleString() }}</h3>
           </div>
           
         </div>
@@ -91,6 +91,7 @@
       this.orders = this.getOrders();
       this.setLoadingState(false);
     },
+    
     created() {
       this.setLoadingState(true);
     }

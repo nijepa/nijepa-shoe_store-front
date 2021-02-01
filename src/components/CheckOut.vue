@@ -2,7 +2,7 @@
   <section class="checkout">
     <transition name="fall" mode="out-in">
 
-      <loading pic="loading" v-if="loadingState" key="1" />
+      <loading v-if="loadingState" key="1" pic="loading" />
 
       <section v-else :key="2" class="cc">
         <div class="items" v-if="!orderPlaced">

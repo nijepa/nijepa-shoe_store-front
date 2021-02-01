@@ -1,7 +1,9 @@
 <template>
   <div class="cart dropdown">
 
-    <router-link to="/" @click.native="checkout()" class="cart__content">
+    <router-link to="/" 
+                @click.native="checkout()" 
+                class="cart__content">
       <h1 v-show="totalQty > 0">{{ totalQty }}</h1>
 
       <svg class="dropbtn" width="50px" x="0px" y="0px"
@@ -14,7 +16,7 @@
           V168c0-4.418,3.578-8,8-8s8,3.582,8,8V288z M368,288c0,4.418-3.578,8-8,8s-8-3.582-8-8V168c0-4.418,3.578-8,8-8s8,3.582,8,8V288z
           M408,288c0,4.418-3.578,8-8,8s-8-3.582-8-8V168c0-4.418,3.578-8,8-8s8,3.582,8,8V288z M448,288c0,4.418-3.578,8-8,8s-8-3.582-8-8
           V168c0-4.418,3.578-8,8-8s8,3.582,8,8V288z"/>
-        <circle fill=";" cx="144" cy="416" r="32"/>
+        <circle fill="transparent;" cx="144" cy="416" r="32"/>
         <circle fill="transparent;" cx="456" cy="416" r="32"/>
         <path fill="transparent;" d="M492,108H108c-0.316,0-0.614,0.069-0.924,0.093l-6.85-23.039C96.539,72.656,84.937,64,72.008,64
           L72,64.001V64H56v16h16v-0.001L72.008,80c5.898,0,11.195,3.953,12.875,9.613l73.242,246.348
@@ -27,11 +29,10 @@
       </svg>
     </router-link>
     
-
     <ul class="dropdown-content">
 
       <router-link to="/" tag="button" 
-                    @click.native="checkout()">
+                  @click.native="checkout()">
         Checkout
       </router-link>
 
@@ -86,35 +87,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .cart__content{
-    svg {
-      path, circle {
-        transition: all .4s ease-in-out;
-        fill: $primary-turquoise-dark;
-      }
-      .svg_body {
-        transition: all .4s ease-in-out;
-        fill: $secondary-cyclamen;
-      }
-    }
-    h1 {
-      transition: all .4s ease-in-out;
-    }
-  }
-  .cart__content:hover {
-    svg {
-      path, circle {
-        fill: $secondary-cyclamen;
-      }
-      .svg_body {
-        fill: $primary-turquoise-dark;
-      }
-    }
-    h1 {
-      color: $primary-turquoise-dark;
-      border: 1px solid $secondary-cyclamen;
-    }
-  }
-</style>

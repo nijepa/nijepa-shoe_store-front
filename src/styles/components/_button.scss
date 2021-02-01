@@ -1,17 +1,17 @@
 button {
+  background-color: $primary-turquoise;
   border-radius: .2em;
   border: 2px solid transparent;
+  margin: .5em 0;
   padding: .5em;
   font-family: $font-code;
   font-weight: 700;
   font-size: 1.4em;
   color: $primary-turquoise-dark;
   text-transform: uppercase;
-  cursor: pointer;
   letter-spacing: .2em;
-  background-color: $primary-turquoise;
   transition: all .3s ease;
-  margin: .5em 0;
+  cursor: pointer;
 }
 
 button:hover {

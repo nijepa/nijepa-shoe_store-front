@@ -85,7 +85,9 @@
 
     </li>
 
-    <h3 class="total__amount">Total : {{ totalQty + ' pcs. : ' + totalAmount.toLocaleString() }} &euro;</h3>
+    <h3 class="total__amount">
+      Total : {{ totalQty + ' pcs. : ' + totalAmount.toLocaleString() }} &euro;
+    </h3>
 
   </ul>
 </template>
@@ -133,7 +135,6 @@
 
     async mounted() {
       await this.initialState();
-      //this.setLoadingState(false);
     }
   }
 </script>

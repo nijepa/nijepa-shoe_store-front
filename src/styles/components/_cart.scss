@@ -1,21 +1,58 @@
 .cart {
-  margin-right: 1em;
-  position: relative;
   display: inline-block;
+  position: relative;
+  margin-right: 1em;
 
   h1 {
+    background-color: $primary-turquoise;
+    width: fit-content;
+    border-radius: 50%;
+    border: 1px solid $primary-turquoise-dark;
     margin-bottom: -.9em;
     margin-left: .3em;
     padding: .2em .7em;
-    border-radius: 50%;
-    border: 1px solid $primary-turquoise-dark;
-    background-color: $primary-turquoise;
-    width: fit-content;
     color: $secondary-cyclamen;
   }
 
-  svg {
-    cursor: pointer;
+  .cart__content{
+
+    svg {
+
+      cursor: pointer;
+
+      path, circle {
+        transition: all .4s ease-in-out;
+        fill: $primary-turquoise-dark;
+      }
+
+      .svg_body {
+        transition: all .4s ease-in-out;
+        fill: $secondary-cyclamen;
+      }
+    }
+
+    h1 {
+      transition: all .4s ease-in-out;
+    }
+  }
+
+  .cart__content:hover {
+
+    svg {
+
+      path, circle {
+        fill: $secondary-cyclamen;
+      }
+
+      .svg_body {
+        fill: $primary-turquoise-dark;
+      }
+    }
+
+    h1 {
+      color: $primary-turquoise-dark;
+      border: 1px solid $secondary-cyclamen;
+    }
   }
 
   .dropbtn {
@@ -36,28 +73,28 @@
     transition: all .8s ease-in-out;
 
     h3 {
+      border-top: 1px solid $primary-turquoise;
       color: $secondary-cyclamen;
       font-size: 1.5em;
-      border-top: 1px solid $primary-turquoise;
       letter-spacing: .1em;
     }
 
     li {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
       display: grid;
       grid-template-columns: auto 1fr;
       align-items: center;
       justify-items: left;
       grid-gap: .5em;
-      text-align: left;
       border-top: 1px solid $primary-turquoise;
-
+      padding: 12px 16px;
+      color: black;
+      text-decoration: none;
+      text-align: left;
+      
       h3 {
+        border-top: none;
         color: $primary-turquoise-dark;
         font-size: 1em;
-        border-top: none;
       }
     
       .shoe__small {
@@ -93,9 +130,6 @@
     
     li:hover {background-color: #f1f1f1;}
   }
-  
-  /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
-  
 }
 
 .cart:hover .dropdown-content, .cart:active .dropdown-content {

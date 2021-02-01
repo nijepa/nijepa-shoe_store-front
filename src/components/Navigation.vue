@@ -142,7 +142,6 @@
 
       toggleLoading(home = false) {
         if (home) { this.disableCheckout() } 
-        //this.setLoadingState(true)
       },
     }
   }
