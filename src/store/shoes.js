@@ -1,5 +1,5 @@
 import axios from 'axios';
-const URL = process.env.VUE_APP_BACKEND_URL;
+const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 
 const  state = {
   shoe: {},
@@ -48,7 +48,7 @@ const mutations = {
 const actions = {
 
   async fetchShoes ({ commit }) {
-    const response = await axios.get(URL + "/shoes");
+    const response = await axios.get(URL + "shoes");
     commit('setShoes', response.data);
   },
 
@@ -58,12 +58,12 @@ const actions = {
   },
 
   async fetchShoe ({ commit }, shoeData) {
-    const response = await axios.get(URL + "shoes/" + shoeData._id, shoeData);
+    const response = await axios.get(URL + "shoes/" + shoeData.id, shoeData);
     await commit('setShoe', response);
   },
 
   async shoeAdd({ commit }, shoeData) {
-    await axios.post(URL + 'shoes/', shoeData)
+    await axios.post(URL + '/shoes/', shoeData)
       .then((response) => {
         commit('addShoe', response.data.shoe);
       })
@@ -77,7 +77,7 @@ const actions = {
   },
 
   async shoeUpdate({ commit }, shoeData) {
-    await axios.put(URL + 'shoes/' + shoeData.id, shoeData)
+    await axios.put(URL + '/shoes/' + shoeData.id, shoeData)
       .then((response) => {
         commit('updateShoe', response.data);
       })
@@ -91,7 +91,7 @@ const actions = {
   },
 
   async shoeDelete({ commit }, shoeData) {
-    await axios.delete(URL + 'shoes/' + shoeData.id, shoeData)
+    await axios.delete(URL + '/shoes/' + shoeData.id, shoeData)
       .then((response) => {
         commit('deleteShoe', response.data.id)
       })
