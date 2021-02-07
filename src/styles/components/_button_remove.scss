@@ -1,0 +1,13 @@
+svg {
+  cursor: pointer;
+  
+  polygon {
+    fill: $primary-turquoise;
+  }
+}
+
+svg:hover {
+  polygon {
+    fill: $secondary-cyclamen;
+  }
+}

@@ -1,18 +1,21 @@
 <template>
   <section>
-    <ShoesBE />
+    <Header />
+    <Sidebar />
   </section>
 </template>
 
 <script>
-  import ShoesBE from '@/components/backend/ShoesBE.vue';
+  import Header from '@/components/backend/Header.vue';
+  import Sidebar from '@/components/backend/Sidebar.vue';
 
   export default {
-    name: 'Article',
+    name: 'Das',
 
     components: {
       //Navigation,
-      ShoesBE
+      Header,
+      Sidebar,
     }
   }
 </script>

@@ -5,8 +5,10 @@
       <Sidebar />
       <div class="content">
         <h1>{{ getSelectedLink }}</h1>
-        <ShoeBE v-if="getActiveComponent" />
-        <ShoesBE v-else />
+        <Categories v-show="getSelectedLink === 'categories'" />
+        <Brands v-show="getSelectedLink === 'brands'" />
+        <Colors v-show="getSelectedLink === 'colors'" />
+        <Sizes v-show="getSelectedLink === 'sizes'" />
       </div>
     </div>
   </div>
@@ -15,23 +17,26 @@
 <script>
   import Header from '@/components/backend/Header.vue';
   import Sidebar from '@/components/backend/Sidebar.vue';
-  import ShoesBE from '@/components/backend/ShoesBE.vue';
-  import ShoeBE from '@/components/backend/ShoeBE.vue';
+  import Colors from '@/components/backend/Colors.vue';
+  import Sizes from '@/components/backend/Sizes.vue';
+  import Categories from '@/components/backend/Categories.vue';
+  import Brands from '@/components/backend/Brands.vue';
   import { mapGetters } from 'vuex';
 
   export default {
-    name: 'Article',
+    name: 'Lists',
 
     components: {
       Header,
       Sidebar,
-      ShoesBE,
-      ShoeBE
+      Categories,
+      Brands,
+      Colors,
+      Sizes
     },
 
     computed: {
-      ...mapGetters([ 'getSelectedLink',
-                      'getActiveComponent']),
+      ...mapGetters([ 'getSelectedLink' ]),
     },
   }
 </script>

@@ -12,6 +12,12 @@ button {
   letter-spacing: .2em;
   transition: all .3s ease;
   cursor: pointer;
+
+  svg {
+    polygon {
+      fill: $primary-turquoise;
+    }
+  }
 }
 
 button:hover {
@@ -19,4 +25,10 @@ button:hover {
   background: radial-gradient($primary-turquoise, $secondary-cyclamen-light);
   color: $secondary-cyclamen-dark;
   //border: 2px solid $blue-darker;
+
+  svg {
+    polygon {
+      fill: $secondary-cyclamen;
+    }
+  }
 }

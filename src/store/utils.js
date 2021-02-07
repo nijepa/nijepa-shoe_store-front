@@ -1,33 +1,53 @@
-const  state = {
+const state = {
   loading: true,
-  errors: []
+  errors: [],
+  activeComponent: false,
+  selectedLink: ''
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
-const  getters = {
+const getters = {
   loadingState: state => state.loading,
+  getActiveComponent: state => state.activeComponent,
+  getSelectedLink: state => state.selectedLink,
   getErrors: state => state.errors
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
-const  mutations = {
+const mutations = {
   changeLoadingState(state, loading) {
     state.loading = loading;
   },
 
+  changeActiveComponent(state, activeComponent) {
+    state.activeComponent = activeComponent;
+  },
+
+  changeSelectedLink(state, selectedLink) {
+    state.selectedLink = selectedLink;
+  },
+
   setErrors(state, errors) {
     state.errors = errors;
-  },
+  }
 };
 
 /* -------------------------------------- ACTIONS -------------------------------------- */
 const actions = {
-  setLoadingState({commit}, loading) {
+  setLoadingState({ commit }, loading) {
     commit('changeLoadingState', loading);
   },
 
+  setActiveComponent({ commit }, activeComponent) {
+    commit('changeActiveComponent', activeComponent);
+  },
+
+  setSelectedLink({ commit }, selectedLink) {
+    commit('changeSelectedLink', selectedLink);
+  },
+
   clearErrors({ commit }) {
-    commit('setErrors', [])
+    commit('setErrors', []);
   }
 };
 

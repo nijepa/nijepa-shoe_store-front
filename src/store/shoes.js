@@ -48,7 +48,7 @@ const mutations = {
 const actions = {
 
   async fetchShoes ({ commit }) {
-    const response = await axios.get(URL + "shoes");
+    const response = await axios.get(URL + "/shoes");
     commit('setShoes', response.data);
   },
 
@@ -58,7 +58,7 @@ const actions = {
   },
 
   async fetchShoe ({ commit }, shoeData) {
-    const response = await axios.get(URL + "shoes/" + shoeData.id, shoeData);
+    const response = await axios.get(URL + "/shoes/" + shoeData.id, shoeData);
     await commit('setShoe', response);
   },
 

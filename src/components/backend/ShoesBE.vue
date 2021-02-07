@@ -1,26 +1,29 @@
 <template>
-  <section class="shoes">
+  <section class="products">
     <!-- <h1>{{ msg }}</h1> -->
     <transition name="fall" mode="out-in">
 
       <loading v-if="loadingState" key="1" pic="loading" />
 
-      <div v-else :key="2" class="shoes__container">
-        <div  class="shoe__list" >
+      <div v-else :key="2" class="products__container">
+
+        <ButtonAdd @added="add" />
+
+        <ul class="list" >
           
-          <div v-for="shoe in shoes" :key="shoe.id" 
-                class="shoe__list_item">
-            <img :src="getJpgUrl(shoe.image)" alt="" class="shoe__logo">
-            <h3>{{ shoe.title }}</h3>
-            <p>{{ shoe.description }}</p>
-            <h3 class="price">{{ shoe.price }} &euro;</h3>
+          <li v-for="shoe in shoes" :key="shoe.id" 
+              @click="selectShoe(shoe)"
+              class="">
+            <div class="list__item">
+              <img :src="getJpgUrl(shoe.image)" alt="" class="products__logo">
+              <h3>{{ shoe.title }}</h3>
+              <h3 class="price">{{ shoe.price }} &euro;</h3>
+            </div>
 
-            <button @click="selectShoe(shoe)">
-              add to cart
-            </button>
+            <ButtonRemove :item="shoe" @removed="remove(shoe)" />
 
-          </div>
-        </div>
+          </li>
+        </ul>
 
         <a v-if="nextPage" 
             @click="loadMore" 
@@ -51,6 +54,8 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import Loading from '@/components/utils/Loading.vue';
+  import ButtonAdd from '@/components/backend/partials/_ButtonAdd.vue';
+  import ButtonRemove from '@/components/backend/partials/_ButtonRemove.vue';
   import loadingM from '../../mixins/loading';
   import imageUrl from '../../mixins/imageUrl';
 
@@ -62,7 +67,9 @@
     },
 
     components: {
-      Loading
+      Loading,
+      ButtonAdd,
+      ButtonRemove
     },
 
     mixins: [
@@ -88,8 +95,9 @@
       ...mapActions([ 'fetchShoes', 
                       'fetchNextShoes',
                       'fetchShoe',
+                      'shoeDelete',
                       'shoeClear',
-                      'initialState',
+                      'setActiveComponent',
                       'fetchCart',
                       'updateCart' ]),
       
@@ -99,8 +107,18 @@
         this.setPage();
       },
 
-      selectShoe(item) {
-        this.fetchShoe(item);
+      async selectShoe(item) {
+        await this.fetchShoe(item);
+        await this.setActiveComponent(true);
+      },
+
+      add() {
+        this.setActiveComponent(true);
+      },
+
+      async remove(shoe) {
+        await this.shoeDelete(shoe);
+        this.shoeClear();
       },
 
       setPage() {
@@ -114,7 +132,6 @@
       await this.fetchShoes();
       this.shoes = this.getAllShoes.data;
       this.setPage();
-      this.initialState();
       this.setLoadingState(false);
     },
 
@@ -123,3 +140,9 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .products__logo {
+    width: 40px;
+  }
+</style>

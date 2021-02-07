@@ -1,0 +1,49 @@
+.list {
+  display: grid;
+  justify-content: center;
+  grid-row-gap: 1em;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 1em;
+    padding: 1em;
+    border-top: 1px solid $primary-turquoise;
+    transition: all .3s ease-in-out;
+
+    .list__item {
+      display: flex;
+      align-items: center;
+      column-gap: .5em;
+      cursor: pointer;
+
+      img {
+        transition: all .3s ease-in-out;
+      }
+    }
+
+/*     svg {
+      cursor: pointer;
+
+      polygon {
+        fill: $primary-turquoise;
+      }
+    }
+
+    svg:hover {
+      polygon {
+        fill: $secondary-cyclamen;
+      }
+    } */
+  }
+  li:nth-child(even) {
+    color: $primary-turquoise;
+  }
+  li:hover {
+    color: $secondary-cyclamen;
+    img {
+      transform: scale(1.3);
+    }
+  }
+}

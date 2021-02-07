@@ -117,6 +117,7 @@
       this.setPage();
       this.initialState();
       this.setLoadingState(false);
+      console.log(`I will become a JS developer in ${new Date().getFullYear()} !`);
     },
 
     created() {
