@@ -7,9 +7,10 @@
 
       <div v-else :key="2" class="list__container">
 
-        <ButtonAdd @added="add" />
+        <ButtonAdd v-if="!showForm" @added="add" />
         
         <form @submit.prevent="save()" v-show="showForm" class="list__modify">
+          <h3>{{ formTitle }}</h3>
 
           <InputText v-model="category.name" :value="category.name" name="category" />
 
@@ -81,6 +82,10 @@
     computed: {
       ...mapGetters([ 'getAllCategories', 
                       'getOneCategory' ]),
+
+      formTitle: function () { 
+        return this.category.name ? 'Edit' : 'Add'
+      }
     },
 
     methods: {

@@ -20,4 +20,18 @@ form {
     //align-items: end;
     //grid-column-gap: .5em;
   }
+
+  .form__item_select {
+    display: grid;
+    justify-self: stretch;
+    text-align: left;
+    padding: .5em 1em;
+
+    label {
+      margin: 0;
+      margin-left: .5em;
+      margin-bottom: .3em;
+      color: $primary-turquoise-dark;
+    }
+  }
 }

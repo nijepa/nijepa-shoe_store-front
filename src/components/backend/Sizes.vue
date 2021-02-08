@@ -7,9 +7,10 @@
 
       <div v-else :key="2" class="list__container">
 
-        <ButtonAdd @added="add" />
+        <ButtonAdd v-if="!showForm" @added="add" />
         
         <form @submit.prevent="save()" v-show="showForm" class="list__modify">
+          <h3>{{ formTitle }}</h3>
 
           <InputText v-model="size.name" :value="size.name" name="size" />
 
@@ -82,6 +83,10 @@
     computed: {
       ...mapGetters([ 'getAllSizes', 
                       'getOneSize' ]),
+
+      formTitle: function () { 
+        return this.size.name ? 'Edit' : 'Add'
+      }
     },
 
     methods: {

@@ -4,18 +4,30 @@
   grid-row-gap: 1em;
 
   li {
-    display: flex;
+/*     display: flex;
     justify-content: space-between;
     align-items: center;
     column-gap: 1em;
     padding: 1em;
     border-top: 1px solid $primary-turquoise;
-    transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out; */
 
+
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    //justify-content: space-between;
+    align-items: center;
+    grid-gap: 1em;
+    padding: 1em;
+    border-top: 1px solid $primary-turquoise;
+    transition: all .3s ease-in-out;
+    
     .list__item {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 2fr 1fr 1fr;
       align-items: center;
-      column-gap: .5em;
+      justify-items: left;
+      grid-gap: 1em;
       cursor: pointer;
 
       img {

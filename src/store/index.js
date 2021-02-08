@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import shoes from './shoes';
+import specifics from './specifics';
 import categories from './categories';
 import brands from './brands';
 import colors from './colors';
@@ -13,6 +14,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     shoes,
+    specifics,
     categories,
     brands,
     colors,

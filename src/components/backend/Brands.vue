@@ -7,9 +7,10 @@
 
       <div v-else :key="2" class="list__container">
 
-        <ButtonAdd @added="add" />
+        <ButtonAdd v-if="!showForm" @added="add" />
         
         <form @submit.prevent="save()" v-show="showForm" class="list__modify">
+          <h3>{{ formTitle }}</h3>
 
           <InputText v-model="brand.name" :value="brand.name" name="brand" />
 
@@ -18,7 +19,6 @@
         </form>
 
         <ul class="list">
-          
           <li v-for="brand in brands" :key="brand.id">
               <!-- <img :src="getJpgUrl(shoe.image)" alt="" class="products__logo"> -->
             <div class="list__item">
@@ -82,6 +82,10 @@
     computed: {
       ...mapGetters([ 'getAllBrands', 
                       'getOneBrand' ]),
+
+      formTitle: function () { 
+        return this.brand.name ? 'Edit' : 'Add'
+      }
     },
 
     methods: {

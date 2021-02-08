@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <label>{{label}}</label>
-    <select :multiple="multi"
+  <div class="form__item_select">
+    <label>{{ label }}</label>
+    <select :multiple="multi" required
             :value="value"
-            @input="$emit('input',
-            $event.target.value)">
+            @input="$emit('input', Number($event.target.value))">
       <option v-for="option in options"
-              :key="option">
-        {{option}}
+              :value="option.id"
+              :key="option.id">
+        {{ option.name }} 
       </option>
     </select>
   </div>
 </template>
 <script>
-export default {
-  name: 'InputSelect',
-  props: ['multi', 'options', 'name', 'label', 'value']
-}
+  export default {
+    name: 'InputSelect',
+
+    props: { multi: Boolean, 
+            options: Array, 
+            name: String, 
+            label: String, 
+            value: Number }
+  }
 </script>
