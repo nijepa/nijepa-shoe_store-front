@@ -10,11 +10,8 @@
         <ButtonAdd @added="add" />
         
         <form @submit.prevent="save()" v-show="showForm" class="list__modify">
-          <label>
-            <input type="text" name="name" id="name" placeholder=" "
-                  v-model="size.number" >
-            <span>Size</span>
-          </label>
+
+          <InputText v-model="size.name" :value="size.name" name="size" />
 
           <ButtonsConfirmation @canceled="cancel" />
 
@@ -44,6 +41,7 @@
   import ButtonsConfirmation from '@/components/backend/partials/_ButtonsConfirmation.vue';
   import ButtonAdd from '@/components/backend/partials/_ButtonAdd.vue';
   import ButtonRemove from '@/components/backend/partials/_ButtonRemove.vue';
+  import InputText from '@/components/backend/partials/_InputText.vue';
   import loadingM from '../../mixins/loading';
   import imageUrl from '../../mixins/imageUrl';
 
@@ -58,7 +56,8 @@
       Loading,
       ButtonsConfirmation,
       ButtonAdd,
-      ButtonRemove
+      ButtonRemove,
+      InputText
     },
 
     mixins: [

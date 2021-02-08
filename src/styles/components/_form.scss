@@ -1,0 +1,23 @@
+form { 
+  //background: $blue-grey;
+  justify-self: center;
+  padding: .5em;
+  //background: linear-gradient(45deg, $blue-grey-darker, $blue-grey-dark);
+  border-radius: .3em;
+  border: 2px solid $primary-turquoise;
+  color: $primary-turquoise;
+  display: grid;
+  justify-items: center;
+
+  .form__item {
+/*    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, auto);  */
+    display: flex;
+    padding: .5em 1em;
+    //box-shadow: 0px 1px 2px $primary-turquoise;
+    //border-top: 1px solid $blue-grey-darker;
+    //align-items: end;
+    //grid-column-gap: .5em;
+  }
+}

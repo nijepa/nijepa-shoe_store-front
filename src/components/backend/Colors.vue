@@ -7,14 +7,12 @@
 
       <div v-else :key="2" class="list__container">
 
-        <ButtonAdd @added="add" />
+        <ButtonAdd v-if="!showForm" @added="add" />
         
-        <form @submit.prevent="save()" v-show="showForm" class="list__modify">
-          <label>
-            <input type="text" name="name" id="name" placeholder=" "
-                  v-model="color.name" >
-            <span>Color</span>
-          </label>
+        <form v-else @submit.prevent="save()" class="list__modify">
+          <h3>{{ formTitle }}</h3>
+
+          <InputText v-model="color.name" :value="color.name" name="color" />
 
           <ButtonsConfirmation @canceled="cancel" />
 
@@ -44,6 +42,7 @@
   import ButtonsConfirmation from '@/components/backend/partials/_ButtonsConfirmation.vue';
   import ButtonAdd from '@/components/backend/partials/_ButtonAdd.vue';
   import ButtonRemove from '@/components/backend/partials/_ButtonRemove.vue';
+  import InputText from '@/components/backend/partials/_InputText.vue';
   import loadingM from '../../mixins/loading';
   import imageUrl from '../../mixins/imageUrl';
 
@@ -58,7 +57,8 @@
       Loading,
       ButtonsConfirmation,
       ButtonAdd,
-      ButtonRemove
+      ButtonRemove,
+      InputText
     },
 
     mixins: [
@@ -83,6 +83,10 @@
     computed: {
       ...mapGetters([ 'getAllColors', 
                       'getOneColor' ]),
+
+      formTitle: function () { 
+        return this.color.name ? 'Edit' : 'Add'
+      }
     },
 
     methods: {

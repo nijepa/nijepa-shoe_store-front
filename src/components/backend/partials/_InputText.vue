@@ -10,22 +10,9 @@
 </template>
 
 <script>
-export default {
-  name: 'TextInput',
+  export default {
+    name: 'TextInput',
 
-  props: ['value', 'name'] ,
-
-/*   computed: {
-    name() {
-      const words = this.inputField.split('.');
-      return words[1];
-    }
-  } */
-  
-
-}
+    props: {value: String, name: String} ,
+  }
 </script>
-
-<style>
-
-</style>

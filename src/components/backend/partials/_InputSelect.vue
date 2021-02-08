@@ -4,7 +4,7 @@
     <select :multiple="multi"
             :value="value"
             @input="$emit('input',
-           $event.target.value)">
+            $event.target.value)">
       <option v-for="option in options"
               :key="option">
         {{option}}
