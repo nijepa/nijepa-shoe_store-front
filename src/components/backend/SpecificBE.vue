@@ -5,31 +5,35 @@
 
     <div v-else :key="2" class="profile__wrapper">
       
-      <form @submit.prevent="save(shoe)">
+      <form @submit.prevent="save(specific)">
 
-        <h1 v-show="getOneShoe.data">{{ formTitle }}</h1>
+        <h1 v-show="getOneSpecific.data">{{ formTitle }}</h1>
 
-        <InputText v-model="shoe.title" :value="shoe.title" name="title" />
+        <!-- <InputText v-model="specific.title" :value="specific.title" name="title" /> -->
+
+        <InputSelect v-model="specific.shoe_id"  
+                    :multi="false" :options="getAllShoes.data"
+                    name="dd" label="Shoe" />
 
         <div class="form__item">
           <label>
             <textarea name="desc" id="desc" cols="30" rows="5" placeholder=" "
-                      v-model="shoe.description"></textarea>
+                      v-model="specific.details"></textarea>
             <span>Description</span>
           </label>
         </div>
         
-        <InputNumber v-model="shoe.price" :value="shoe.price" name="price" step="0.01" />
+        <InputNumber v-model="specific.price" :value="specific.price" name="price" step="0.01" />
 
-        <InputSelect v-model="shoe.category_id"  
-                    :multi="false" :options="getAllCategories"
-                    name="dd" label="Category" />
+        <InputSelect v-model="specific.color_id"  
+                    :multi="false" :options="getAllColors"
+                    name="dd" label="Color" />
         
-        <InputSelect v-model="shoe.brand_id"  
-                    :multi="false" :options="getAllBrands"
-                    name="dd" label="Brand" />
+        <InputSelect v-model="specific.size_id"  
+                    :multi="false" :options="getAllSizes"
+                    name="dd" label="Size" />
 
-        <InputNumber v-model="shoe.stock" :value="shoe.stock" name="stock" step="1" />
+        <InputNumber v-model="specific.stock" :value="specific.stock" name="stock" step="1" />
 
         <ButtonsConfirmation @canceled="cancel" />
 
@@ -41,7 +45,7 @@
 <script>
   import Loading from '@/components/utils/Loading.vue';
   import ButtonsConfirmation from '@/components/backend/partials/_ButtonsConfirmation.vue';
-  import InputText from '@/components/backend/partials/_InputText.vue';
+  // import InputText from '@/components/backend/partials/_InputText.vue';
   import InputNumber from '@/components/backend/partials/_InputNumber.vue';
   import InputSelect from '@/components/backend/partials/_InputSelect.vue';
   import { mapGetters, mapActions } from 'vuex';
@@ -49,12 +53,12 @@
   import imageUrl from '../../mixins/imageUrl';
 
   export default {
-    name: 'ShoeBE',
+    name: 'SpecificBE',
 
     components: {
       Loading,
       ButtonsConfirmation,
-      InputText,
+      //InputText,
       InputNumber,
       InputSelect
     },
@@ -65,60 +69,62 @@
     ],
 
     props: {
-      newShoe: Boolean,
+      newSpecific: Boolean,
     },
 
     data () {
       return {
-        shoe: {
-          title: '',
-          description: '',
+        specific: {
+          details: '',
+          shoe_id: null,
+          color_id: null,
+          size_id: null,
           price: null,
           stock: null,
-          category_id: null,
-          brand_id: null
         }
       }
     },
 
     computed: {
-      ...mapGetters([ 'getOneShoe',
-                      'getAllCategories',
-                      'getAllBrands']),
+      ...mapGetters([ 'getOneSpecific',
+                      'getAllShoes',
+                      'getAllColors',
+                      'getAllSizes']),
 
       formTitle: function() {
-        return this.getOneShoe.data ? 'Edit' : 'Add'
+        return this.getOneSpecific.id ? 'Edit' : 'Add';
       }
     },
 
     methods: {
-      ...mapActions([ 'fetchShoe',
-                      'shoeClear',
-                      'shoeAdd',
-                      'shoeUpdate',
-                      'shoeDelete',
-                      'fetchCategories',
-                      'fetchBrands',
+      ...mapActions([ 'fetchSpecific',
+                      'specificClear',
+                      'specificAdd',
+                      'specificUpdate',
+                      'specificDelete',
+                      'fetchShoes',
+                      'fetchColors',
+                      'fetchSizes',
                       'setActiveComponent' ]),
 
-      async save(shoe) {
-        if (this.getOneShoe.data) {
-          await this.shoeUpdate(shoe);
-          //this.shoeClear();
+      async save(specific) {
+        if (this.getOneSpecific.data) {
+          await this.specificUpdate(specific);
+          //this.specificClear();
         } else {
-          this.shoeAdd(shoe);
+          this.specificAdd(specific);
         }
         this.cancel();
       },
 
       cancel() {
-        this.shoeClear();
+        this.specificClear();
         this.setActiveComponent(false);
       },
 
-      async remove(shoe) {
-        await this.shoeDelete(shoe);
-        this.shoeClear();
+      async remove(specific) {
+        await this.specificDelete(specific);
+        this.specificClear();
       }
     },
     
@@ -127,12 +133,13 @@
     },
 
     async created() {
-      if (this.getOneShoe.data) {
-        this.shoe = this.getOneShoe.data;
+      if (this.getOneSpecific.data) {
+        this.specific = this.getOneSpecific.data;
       }
-      await this.fetchBrands();
-      
-      await this.fetchCategories();
+
+      await this.fetchShoes();
+      await this.fetchSizes();
+      await this.fetchColors();
       //this.categories = this.getAllCategories;
       //await this.setLoadingState(true);
     }

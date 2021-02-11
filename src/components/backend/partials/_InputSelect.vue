@@ -7,11 +7,12 @@
       <option v-for="option in options"
               :value="option.id"
               :key="option.id">
-        {{ option.name }} 
+        {{ option.name ? option.name : option.number ? option.number : option.title }} 
       </option>
     </select>
   </div>
 </template>
+
 <script>
   export default {
     name: 'InputSelect',

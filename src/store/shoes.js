@@ -26,7 +26,7 @@ const mutations = {
   },
 
   addShoe(state, newShoe) {
-    state.shoes = [newShoe, ...state.shoes]
+    state.shoes.data = [newShoe, ...state.shoes.data]
   },
 
   updateShoe(state, updatedShoe) {
@@ -38,8 +38,8 @@ const mutations = {
   },
 
   deleteShoe (state, id) {
-    state.shoes = [
-      ...state.shoes.filter((item) => item.id !== id)
+    state.shoes.data = [
+      ...state.shoes.data.filter((item) => item.id !== id)
     ];
   }, 
 };

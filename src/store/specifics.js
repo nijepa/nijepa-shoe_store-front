@@ -24,7 +24,7 @@ const mutations = {
   },
 
   addSpecific(state, newSpecific) {
-    state.specifics = [newSpecific, ...state.specifics]
+    state.specifics.data = [newSpecific, ...state.specifics.data]
   },
 
   updateSpecific(state, updatedSpecific) {
@@ -36,8 +36,8 @@ const mutations = {
   },
 
   deleteSpecific (state, id) {
-    state.specifics = [
-      ...state.specifics.filter((item) => item.id !== id)
+    state.specifics.data = [
+      ...state.specifics.data.filter((item) => item.id !== id)
     ];
   }, 
 };
@@ -58,7 +58,7 @@ const actions = {
   async specificAdd({ commit }, specificData) {
     await axios.post(URL + '/specifics/', specificData)
       .then((response) => {
-        commit('addSpecific', response.data);
+        commit('addSpecific', response.data[0]);
       })
       .catch((error) => {
         if (error.response) {

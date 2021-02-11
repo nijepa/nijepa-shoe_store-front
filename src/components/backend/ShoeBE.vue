@@ -106,7 +106,8 @@
           await this.shoeUpdate(shoe);
           //this.shoeClear();
         } else {
-          this.shoeAdd(shoe);
+          console.log(shoe)
+          await this.shoeAdd(shoe);
         }
         this.cancel();
       },
@@ -117,6 +118,7 @@
       },
 
       async remove(shoe) {
+        //this.shoe =
         await this.shoeDelete(shoe);
         this.shoeClear();
       }

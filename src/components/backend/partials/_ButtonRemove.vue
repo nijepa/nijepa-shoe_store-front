@@ -1,5 +1,5 @@
 <template>
-  <svg @click="remove(item)" width="30px" x="0px" y="0px"
+  <svg @click.prevent="remove(item)" width="30px" x="0px" y="0px"
       viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
     <polygon fill="#51cbe9;" points="14.713,197.889 14.713,314.11 198.365,314.11 314.584,197.889 "/>
     <path style="fill:#235966;" d="M497.287,183.176H314.584H14.713C6.587,183.176,0,189.763,0,197.889V314.11
@@ -29,7 +29,3 @@
     }
   }
 </script>
-
-<style>
-
-</style>

@@ -17,9 +17,9 @@
           <li>Specifics</li>
           <li>Delete</li>
         </ul>
+
         <ul class="list" >
-          
-          <li v-for="shoe in shoes" :key="shoe.id" 
+          <li v-for="shoe in shoes.data" :key="shoe.id" 
               class="">
             <div @click="selectShoe(shoe)" class="list__item">
               <img :src="getJpgUrl(shoe.image)" alt="" class="products__logo">
@@ -28,6 +28,7 @@
               <h3 class="price">{{ shoe.brand.name }} </h3>
               <h3 class="price">{{ shoe.category.name }} </h3>
             </div>
+            
             <svg @click="$router.push('specifics')" width="40px" x="0px" y="0px"
                 viewBox="0 0 56.028 56.028" style="enable-background:new 0 0 56.028 56.028;" xml:space="preserve">
               <path fill="#8697CB;" d="M19.807,33.223c-0.327,0.04-0.654,0.079-0.981,0.115c-0.549,0.062-0.944,0.557-0.883,1.105
@@ -136,6 +137,7 @@
                 c0.391-0.391,0.391-1.023,0-1.414l-3.347-3.347c-0.631,0.254-1.29,0.491-1.964,0.717c0.048,0.137,0.119,0.266,0.228,0.376
                 L21.308,30.345z"/>
             </svg>
+
             <ButtonRemove :item="shoe" @removed="remove(shoe)" />
 
           </li>
@@ -176,7 +178,7 @@
   import imageUrl from '../../mixins/imageUrl';
 
   export default {
-    name: 'Shoes',
+    name: 'ShoesBE',
 
     props: {
       msg: String
@@ -217,7 +219,7 @@
       
       async loadMore() {
         await this.fetchNextShoes(this.nextPage);
-        this.shoes = this.shoes.concat(this.getAllShoes.data);
+        this.shoes.data = this.shoes.data.concat(this.getAllShoes.data);
         this.setPage();
       },
 
@@ -232,7 +234,8 @@
 
       async remove(shoe) {
         await this.shoeDelete(shoe);
-        this.shoeClear();
+        this.shoeClear(); 
+        this.shoes.data = this.shoes.data.filter((item) => item.id !== shoe.id)
       },
 
       setPage() {
@@ -244,7 +247,7 @@
 
     async mounted() {
       await this.fetchShoes();
-      this.shoes = this.getAllShoes.data;
+      this.shoes = this.getAllShoes;
       this.setPage();
       this.setLoadingState(false);
     },

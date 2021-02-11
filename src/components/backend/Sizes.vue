@@ -12,7 +12,7 @@
         <form @submit.prevent="save()" v-show="showForm" class="list__modify">
           <h3>{{ formTitle }}</h3>
 
-          <InputText v-model="size.name" :value="size.name" name="size" />
+          <InputText v-model="size.number" :value="size.number" name="size" />
 
           <ButtonsConfirmation @canceled="cancel" />
 
