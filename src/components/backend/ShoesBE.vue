@@ -29,7 +29,7 @@
               <h3 class="price">{{ shoe.category.name }} </h3>
             </div>
             
-            <svg @click="$router.push('specifics')" width="40px" x="0px" y="0px"
+            <svg @click="getSpecifics('specifics')" width="40px" x="0px" y="0px"
                 viewBox="0 0 56.028 56.028" style="enable-background:new 0 0 56.028 56.028;" xml:space="preserve">
               <path fill="#8697CB;" d="M19.807,33.223c-0.327,0.04-0.654,0.079-0.981,0.115c-0.549,0.062-0.944,0.557-0.883,1.105
                 c0.058,0.511,0.49,0.889,0.993,0.889c0.037,0,0.074-0.002,0.112-0.006c0.335-0.038,0.67-0.077,1.005-0.119
@@ -143,26 +143,11 @@
           </li>
         </ul>
 
-        <a v-if="nextPage" 
-            @click="loadMore" 
-            class="load__more">
-          show more shoes
-          <svg width="40px" x="0px" y="0px"
-              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-            <polygon fill="#8AE9FF;" points="256,250.9 10.199,127.49 10.199,261.099 256,384.51 501.801,261.099 501.801,127.49 "/>
-            <path fill="#248A9C;" d="M256,394.71c-1.569,0-3.136-0.361-4.576-1.084L5.623,270.215C2.175,268.485,0,264.958,0,261.1
-              v-133.61c0-3.538,1.833-6.822,4.845-8.681c3.012-1.856,6.769-2.021,9.931-0.434L256,239.488l241.224-121.112
-              c3.164-1.59,6.92-1.424,9.931,0.434c3.011,1.857,4.845,5.142,4.845,8.681V261.1c0,3.857-2.176,7.384-5.623,9.115l-245.801,123.41
-              C259.136,394.348,257.569,394.71,256,394.71z M20.398,254.808L256,373.098l235.602-118.289V144.023L260.576,260.015
-              c-2.879,1.446-6.273,1.446-9.153,0L20.398,144.023V254.808z"/>
-            <path fill="#248A9C;" d="M414.097,275.562c-3.735,0-7.332-2.059-9.122-5.625c-2.528-5.034-0.496-11.164,4.538-13.691
-              l6.455-3.241c5.037-2.526,11.164-0.496,13.691,4.538c2.528,5.034,0.496,11.164-4.538,13.691l-6.455,3.241
-              C417.196,275.212,415.635,275.562,414.097,275.562z"/>
-            <path fill="#248A9C;" d="M256.008,354.934c-3.735,0-7.332-2.059-9.123-5.625c-2.527-5.034-0.496-11.164,4.539-13.691
-              l125.45-62.985c5.036-2.525,11.164-0.496,13.691,4.538c2.528,5.035,0.496,11.164-4.538,13.691l-125.45,62.985
-              C259.108,354.586,257.546,354.934,256.008,354.934z"/>
-          </svg>
-        </a>
+        <Pager :links="shoes.links"
+              :currentPage="shoes.current_page"
+              :firstPage="shoes.first_page_url"
+              :lastPage="shoes.last_page_url"
+              @pageChanged="changePage" />
 
       </div>
     </transition>
@@ -174,6 +159,7 @@
   import Loading from '@/components/utils/Loading.vue';
   import ButtonAdd from '@/components/backend/partials/_ButtonAdd.vue';
   import ButtonRemove from '@/components/backend/partials/_ButtonRemove.vue';
+  import Pager from '@/components/backend/partials/_Pager.vue';
   import loadingM from '../../mixins/loading';
   import imageUrl from '../../mixins/imageUrl';
 
@@ -187,7 +173,8 @@
     components: {
       Loading,
       ButtonAdd,
-      ButtonRemove
+      ButtonRemove,
+      Pager
     },
 
     mixins: [
@@ -200,27 +187,38 @@
         shoes: [],
         currentPage: 0,
         lastPage: 0,
-        nextPage: null
+        nextPage: null,
+        firstPageURL: '',
+        lastPageURL: '',
+        links: [],
+        query: {
+          nr: 5,
+          col: 'title',
+          order: 'asc',
+          search: ''
+        }
       }
     },
 
     computed: {
-      ...mapGetters([ 'getAllShoes', 
+      ...mapGetters([ 'getShoesList', 
                       'getCart' ]),
     },
 
     methods: {
-      ...mapActions([ 'fetchShoes', 
+      ...mapActions([ 'fetchShoesList', 
                       'fetchNextShoes',
                       'fetchShoe',
                       'shoeDelete',
                       'shoeClear',
+                      'setSelectedLink',
                       'setActiveComponent' ]),
-      
-      async loadMore() {
-        await this.fetchNextShoes(this.nextPage);
-        this.shoes.data = this.shoes.data.concat(this.getAllShoes.data);
-        this.setPage();
+
+      async changePage(page) {
+        if (page) {
+          await this.fetchNextShoes(page);
+          this.shoes = this.getShoesList;
+        }
       },
 
       async selectShoe(item) {
@@ -238,16 +236,25 @@
         this.shoes.data = this.shoes.data.filter((item) => item.id !== shoe.id)
       },
 
+      getSpecifics(name) {
+        this.setSelectedLink(name);
+        this.$router.push(name)
+      },
+
       setPage() {
-        this.currentPage = this.getAllShoes.current_page;
-        this.lastPage = this.getAllShoes.last_page;
-        this.nextPage = this.getAllShoes.next_page_url;
+        this.currentPage = this.getShoesList.current_page;
+        this.lastPage = this.getShoesList.last_page;
+        this.nextPage = this.getShoesList.next_page_url;
+        this.firstPageURL = this.getShoesList.first_page_url;
+        this.lastPageURL = this.getShoesList.last_page_url;
+        this.links = this.getShoesList.links;
       }
     },
 
     async mounted() {
-      await this.fetchShoes();
-      this.shoes = this.getAllShoes;
+      console.log(this.query)
+      await this.fetchShoesList(this.query);
+      this.shoes = this.getShoesList;
       this.setPage();
       this.setLoadingState(false);
     },
@@ -259,6 +266,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .products__container {
+    display: grid;
+  }
   .products__logo {
     width: 40px;
   }

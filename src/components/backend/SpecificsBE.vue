@@ -33,7 +33,7 @@
               <h3>{{ specific.stock }}</h3>
             </div>
 
-            <ButtonRemove :item="specific" @removed="remove(specific)" />
+            <ButtonRemove :item="specific" @removed="removes(specific)" />
 
           </li>
         </ul>
@@ -99,9 +99,10 @@
         this.setActiveComponent(true);
       },
 
-      async remove(specific) {
-        this.setActiveComponent(false);
+      async removes(specific) {
+        //this.setActiveComponent(false);
         await this.specificDelete(specific);
+        this.setActiveComponent(false);
         this.specificClear();
         this.specifics.data = this.specifics.data.filter((item) => item.id !== specific.id);
       }

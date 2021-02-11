@@ -3,19 +3,23 @@ const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 
 const  state = {
   shoe: {},
-  shoes: []
+  shoes: [],
+  shoesList: []
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
 const getters = {
   getAllShoes: state => state.shoes,
-  getOneShoe: state => state.shoe
+  getOneShoe: state => state.shoe,
+  getShoesList: state => state.shoesList,
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
 const mutations = {
 
   setShoes: (state, shoes) => (state.shoes = shoes),
+
+  setShoesList: (state, shoesList) => (state.shoesList = shoesList),
 
   setNextShoes: (state, nextPage) => (state.shoes = nextPage),
 
@@ -26,20 +30,20 @@ const mutations = {
   },
 
   addShoe(state, newShoe) {
-    state.shoes.data = [newShoe, ...state.shoes.data]
+    state.shoesList.data = [newShoe, ...state.shoesList.data]
   },
 
   updateShoe(state, updatedShoe) {
-    state.shoes = [
-      ...state.shoes.map(item => 
+    state.shoesList = [
+      ...state.shoesList.map(item => 
           item.id !== updatedShoe.id ? item : {...item, ...updatedShoe}
       )
     ] 
   },
 
   deleteShoe (state, id) {
-    state.shoes.data = [
-      ...state.shoes.data.filter((item) => item.id !== id)
+    state.shoesList.data = [
+      ...state.shoesList.data.filter((item) => item.id !== id)
     ];
   }, 
 };
@@ -50,6 +54,11 @@ const actions = {
   async fetchShoes ({ commit }) {
     const response = await axios.get(URL + "/shoes");
     commit('setShoes', response.data);
+  },
+
+  async fetchShoesList ({ commit }, nr) {
+    const response = await axios.get(URL + "/pag/" + nr.nr, nr);
+    commit('setShoesList', response.data);
   },
 
   async fetchNextShoes ({ commit }, nextPage) {

@@ -2,6 +2,7 @@
   display: grid;
   justify-content: center;
   grid-row-gap: 1em;
+  border-bottom: 1px solid $primary-turquoise;
 
   li {
 /*     display: flex;
