@@ -1,5 +1,5 @@
 button {
-  background-color: $primary-turquoise;
+  background: $primary-turquoise;
   border-radius: .2em;
   border: 2px solid transparent;
   margin: .5em 0;
@@ -10,12 +10,13 @@ button {
   color: $primary-turquoise-dark;
   text-transform: uppercase;
   letter-spacing: .2em;
-  transition: all .3s ease;
+  transition: all .3s ease-in-out;
   cursor: pointer;
 
   svg {
     polygon {
       fill: $primary-turquoise;
+      transition: all .3s ease-in-out;
     }
   }
 }
@@ -24,7 +25,7 @@ button:hover {
   //background-color: $blue-main;
   background: radial-gradient($primary-turquoise, $secondary-cyclamen-light);
   color: $secondary-cyclamen-dark;
-  //border: 2px solid $blue-darker;
+  //border: 2px solid $primary-turquoise-dark;
 
   svg {
     polygon {

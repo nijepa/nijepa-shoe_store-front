@@ -9,6 +9,16 @@
 
         <ButtonAdd @added="add" />
 
+        <div class="search__container">
+          <input v-model="queryStr.search" type="text" name="search" id="search">
+          <select @change="queryShoes" v-model="queryStr.nr"  name="pages" id="pages">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="">All</option>
+          </select>
+        </div>
+
         <ul class="list__header">
           <li></li>
           <li>Name</li>
@@ -184,14 +194,14 @@
 
     data() {
       return {
-        shoes: [],
+        shoes: {},
         currentPage: 0,
         lastPage: 0,
         nextPage: null,
         firstPageURL: '',
         lastPageURL: '',
         links: [],
-        query: {
+        queryStr: {
           nr: 5,
           col: 'title',
           order: 'asc',
@@ -207,7 +217,7 @@
 
     methods: {
       ...mapActions([ 'fetchShoesList', 
-                      'fetchNextShoes',
+                      'fetchShoesPage',
                       'fetchShoe',
                       'shoeDelete',
                       'shoeClear',
@@ -216,7 +226,8 @@
 
       async changePage(page) {
         if (page) {
-          await this.fetchNextShoes(page);
+          this.queryStr.page = page;
+          await this.fetchShoesPage(this.queryStr);
           this.shoes = this.getShoesList;
         }
       },
@@ -248,13 +259,17 @@
         this.firstPageURL = this.getShoesList.first_page_url;
         this.lastPageURL = this.getShoesList.last_page_url;
         this.links = this.getShoesList.links;
+      },
+
+      async queryShoes() {
+        //console.log(this.queryStr)
+        await this.fetchShoesList(this.queryStr);
+        this.shoes = this.getShoesList;
       }
     },
 
     async mounted() {
-      console.log(this.query)
-      await this.fetchShoesList(this.query);
-      this.shoes = this.getShoesList;
+      await this.queryShoes();
       this.setPage();
       this.setLoadingState(false);
     },

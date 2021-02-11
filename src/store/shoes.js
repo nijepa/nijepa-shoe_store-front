@@ -1,10 +1,10 @@
 import axios from 'axios';
 const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 
-const  state = {
+const state = {
   shoe: {},
   shoes: [],
-  shoesList: []
+  shoesList: {}
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
@@ -56,14 +56,21 @@ const actions = {
     commit('setShoes', response.data);
   },
 
-  async fetchShoesList ({ commit }, nr) {
-    const response = await axios.get(URL + "/pag/" + nr.nr, nr);
+  async fetchShoesList ({ commit }, queryStr) {
+    console.log(queryStr)
+    const response = await axios.post(URL + "/list?page=2", queryStr);
     commit('setShoesList', response.data);
   },
 
   async fetchNextShoes ({ commit }, nextPage) {
     const response = await axios.get(nextPage);
     commit('setShoes', response.data);
+  },
+
+  async fetchShoesPage ({ commit }, nextPage) {
+    console.log(nextPage)
+    const response = await axios.post(nextPage.page, nextPage);
+    commit('setShoesList', response.data);
   },
 
   async fetchShoe ({ commit }, shoeData) {
