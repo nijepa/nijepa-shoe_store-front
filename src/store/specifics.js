@@ -1,21 +1,25 @@
 import axios from 'axios';
 const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 
-const  state = {
+const state = {
   specific: {},
-  specifics: []
+  specifics: [],
+  specificsList: {}
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
 const getters = {
   getAllSpecifics: state => state.specifics,
-  getOneSpecific: state => state.specific
+  getOneSpecific: state => state.specific,
+  getSpecificsList: state => state.specificsList
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
 const mutations = {
 
   setSpecifics: (state, specifics) => (state.specifics = specifics),
+
+  setSpecificsList: (state, specificsList) => (state.specificsList = specificsList),
 
   setSpecific: (state, specific) => (state.specific = specific),
 
@@ -47,6 +51,21 @@ const actions = {
 
   async fetchSpecifics ({ commit }) {
     const response = await axios.get(URL + "/specifics");
+    commit('setSpecifics', response.data);
+  },
+
+  async fetchSpecificsList ({ commit }, queryStr) {
+    const response = await axios.post(URL + "/list?page=" + queryStr.pageNr, queryStr);
+    commit('setSpecificsList', response.data);
+  },
+
+  async fetchSpecificsPage ({ commit }, nextPage) {
+    const response = await axios.post(URL + "/list?page=" + nextPage.pageNr, nextPage);
+    commit('setSpecificsList', response.data);
+  },
+
+  async fetchShoeSpecifics ({ commit }, shoeData) {
+    const response = await axios.get(URL + "/shoespecs/" + shoeData);
     commit('setSpecifics', response.data);
   },
 

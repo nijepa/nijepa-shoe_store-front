@@ -7,13 +7,14 @@
       
       <form @submit.prevent="save(specific)">
 
-        <h1 v-show="getOneSpecific.data">{{ formTitle }}</h1>
+        <h1>{{ formTitle }}</h1>
+        
+        <h4>{{ selectedShoe.title }}</h4>
+        <!-- <InputText v-model="selectedShoe.title" :value="selectedShoe.title" name="title" disabled />  -->
 
-        <!-- <InputText v-model="specific.title" :value="specific.title" name="title" /> -->
-
-        <InputSelect v-model="specific.shoe_id"  
+<!--         <InputSelect v-model="specific.shoe_id"  
                     :multi="false" :options="getAllShoes.data"
-                    name="dd" label="Shoe" />
+                    name="dd" label="Shoe" /> -->
 
         <div class="form__item">
           <label>
@@ -45,7 +46,7 @@
 <script>
   import Loading from '@/components/utils/Loading.vue';
   import ButtonsConfirmation from '@/components/backend/partials/_ButtonsConfirmation.vue';
-  // import InputText from '@/components/backend/partials/_InputText.vue';
+  //import InputText from '@/components/backend/partials/_InputText.vue';
   import InputNumber from '@/components/backend/partials/_InputNumber.vue';
   import InputSelect from '@/components/backend/partials/_InputSelect.vue';
   import { mapGetters, mapActions } from 'vuex';
@@ -81,18 +82,20 @@
           size_id: null,
           price: null,
           stock: null,
-        }
+        },
+        selectedShoe: {}
       }
     },
 
     computed: {
       ...mapGetters([ 'getOneSpecific',
                       'getAllShoes',
+                      'getOneShoe',
                       'getAllColors',
                       'getAllSizes']),
 
       formTitle: function() {
-        return this.getOneSpecific.id ? 'Edit' : 'Add';
+        return this.getOneSpecific.data ? 'Edit' : 'Add';
       }
     },
 
@@ -136,8 +139,10 @@
       if (this.getOneSpecific.data) {
         this.specific = this.getOneSpecific.data;
       }
+      this.selectedShoe = this.getOneShoe.data;
+      this.specific.shoe_id = this.getOneShoe.data.id
 
-      await this.fetchShoes();
+      //await this.fetchShoes();
       await this.fetchSizes();
       await this.fetchColors();
       //this.categories = this.getAllCategories;

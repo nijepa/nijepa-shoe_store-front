@@ -41,7 +41,7 @@
               <h3 class="price">{{ shoe.category.name }} </h3>
             </div>
             
-            <svg @click="getSpecifics('specifics')" width="40px" x="0px" y="0px"
+            <svg @click="getSpecifics('specifics', shoe)" width="40px" x="0px" y="0px"
                 viewBox="0 0 56.028 56.028" style="enable-background:new 0 0 56.028 56.028;" xml:space="preserve">
               <path fill="#8697CB;" d="M19.807,33.223c-0.327,0.04-0.654,0.079-0.981,0.115c-0.549,0.062-0.944,0.557-0.883,1.105
                 c0.058,0.511,0.49,0.889,0.993,0.889c0.037,0,0.074-0.002,0.112-0.006c0.335-0.038,0.67-0.077,1.005-0.119
@@ -252,9 +252,10 @@
         this.shoes.data = this.shoes.data.filter((item) => item.id !== shoe.id)
       },
 
-      getSpecifics(name) {
+      async getSpecifics(name, item) {
         this.setSelectedLink(name);
-        this.$router.push(name);
+        await this.fetchShoe(item);
+        this.$router.push(name, );
       },
 
       async queryShoes(options = '') {

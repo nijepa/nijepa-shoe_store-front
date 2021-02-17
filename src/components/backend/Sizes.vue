@@ -85,7 +85,7 @@
                       'getOneSize' ]),
 
       formTitle: function () { 
-        return this.size.name ? 'Edit' : 'Add'
+        return this.size.number ? 'Edit' : 'Add'
       }
     },
 

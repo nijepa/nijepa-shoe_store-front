@@ -11,7 +11,7 @@ const state = {
 const getters = {
   getAllShoes: state => state.shoes,
   getOneShoe: state => state.shoe,
-  getShoesList: state => state.shoesList,
+  getShoesList: state => state.shoesList
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
@@ -57,7 +57,6 @@ const actions = {
   },
 
   async fetchShoesList ({ commit }, queryStr) {
-    //console.log(queryStr)
     const response = await axios.post(URL + "/list?page=" + queryStr.pageNr, queryStr);
     commit('setShoesList', response.data);
   },
@@ -69,8 +68,6 @@ const actions = {
 
   async fetchShoesPage ({ commit }, nextPage) {
     const response = await axios.post(URL + "/list?page=" + nextPage.pageNr, nextPage);
-    //const response = await axios.post(nextPage.page, nextPage);
-    console.log(response.data)
     commit('setShoesList', response.data);
   },
 

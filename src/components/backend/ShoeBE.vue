@@ -7,7 +7,7 @@
       
       <form @submit.prevent="save(shoe)">
 
-        <h1 v-show="getOneShoe.data">{{ formTitle }}</h1>
+        <h1>{{ formTitle }}</h1>
 
         <InputText v-model="shoe.title" :value="shoe.title" name="title" />
 
@@ -87,7 +87,7 @@
                       'getAllBrands']),
 
       formTitle: function() {
-        return this.getOneShoe.data ? 'Edit' : 'Add'
+        return this.shoe.title ? 'Edit' : 'Add'
       }
     },
 

@@ -51,6 +51,7 @@
 
     h1 {
       text-transform: uppercase;
+      font-family: $font-brand;
     }
   }
 </style>
