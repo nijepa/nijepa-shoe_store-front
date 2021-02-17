@@ -1,23 +1,22 @@
 <template>
   <section class="products">
     <!-- <h1>{{ msg }}</h1> -->
-    <transition name="fall" mode="out-in">
+    <transition name="fall" 
+                mode="out-in">
 
-      <loading v-if="loadingState" key="1" pic="loading" />
+      <loading v-if="loadingState" 
+                key="1" 
+                pic="loading" />
 
-      <div v-else :key="2" class="products__container">
+      <div v-else 
+            :key="2" 
+            class="products__container">
 
         <ButtonAdd @added="add" />
 
-        <div class="search__container">
-          <input v-model="queryStr.search" type="text" name="search" id="search">
-          <select @change="queryShoes" v-model="queryStr.nr"  name="pages" id="pages">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="">All</option>
-          </select>
-        </div>
+        <Search :str-search="queryStr.search"
+                :nr-pages="queryStr.nr"
+                @items-searched="queryShoes" />
 
         <ul class="list__header">
           <li></li>
@@ -29,10 +28,13 @@
         </ul>
 
         <ul class="list" >
-          <li v-for="shoe in shoes.data" :key="shoe.id" 
+          <li v-for="shoe in shoes.data" 
+              :key="shoe.id" 
               class="">
-            <div @click="selectShoe(shoe)" class="list__item">
-              <img :src="getJpgUrl(shoe.image)" alt="" class="products__logo">
+            <div @click="selectShoe(shoe)" 
+                  class="list__item">
+              <img :src="getJpgUrl(shoe.image)" alt="" 
+                    class="products__logo">
               <h3>{{ shoe.title }}</h3>
               <!-- <h3 class="price">{{ shoe.price }} &euro;</h3> -->
               <h3 class="price">{{ shoe.brand.name }} </h3>
@@ -148,7 +150,8 @@
                 L21.308,30.345z"/>
             </svg>
 
-            <ButtonRemove :item="shoe" @removed="remove(shoe)" />
+            <ButtonRemove :item="shoe" 
+                          @removed="remove(shoe)" />
 
           </li>
         </ul>
@@ -170,6 +173,7 @@
   import ButtonAdd from '@/components/backend/partials/_ButtonAdd.vue';
   import ButtonRemove from '@/components/backend/partials/_ButtonRemove.vue';
   import Pager from '@/components/backend/partials/_Pager.vue';
+  import Search from '@/components/backend/partials/_Search.vue';
   import loadingM from '../../mixins/loading';
   import imageUrl from '../../mixins/imageUrl';
 
@@ -184,7 +188,8 @@
       Loading,
       ButtonAdd,
       ButtonRemove,
-      Pager
+      Pager,
+      Search
     },
 
     mixins: [
@@ -195,17 +200,12 @@
     data() {
       return {
         shoes: {},
-        currentPage: 0,
-        lastPage: 0,
-        nextPage: null,
-        firstPageURL: '',
-        lastPageURL: '',
-        links: [],
         queryStr: {
           nr: 5,
           col: 'title',
           order: 'asc',
-          search: ''
+          search: '',
+          pageNr: 1
         }
       }
     },
@@ -226,7 +226,8 @@
 
       async changePage(page) {
         if (page) {
-          this.queryStr.page = page;
+          let pageNr = page.slice(page.indexOf('=') + 1, page.length);
+          this.queryStr.pageNr = pageNr;
           await this.fetchShoesPage(this.queryStr);
           this.shoes = this.getShoesList;
         }
@@ -235,6 +236,10 @@
       async selectShoe(item) {
         await this.fetchShoe(item);
         await this.setActiveComponent(true);
+      },
+
+      focusSearch() {
+        this.$refs.search.focus();
       },
 
       add() {
@@ -249,20 +254,17 @@
 
       getSpecifics(name) {
         this.setSelectedLink(name);
-        this.$router.push(name)
+        this.$router.push(name);
       },
 
-      setPage() {
-        this.currentPage = this.getShoesList.current_page;
-        this.lastPage = this.getShoesList.last_page;
-        this.nextPage = this.getShoesList.next_page_url;
-        this.firstPageURL = this.getShoesList.first_page_url;
-        this.lastPageURL = this.getShoesList.last_page_url;
-        this.links = this.getShoesList.links;
-      },
-
-      async queryShoes() {
-        //console.log(this.queryStr)
+      async queryShoes(options = '') {
+        if (options) {
+          if (this.getShoesList.total / options.nr < this.shoes.current_page) {
+            this.queryStr.pageNr = Math.floor(this.getShoesList.total / options.nr);
+          } 
+          this.queryStr.nr = options.nr;
+          this.queryStr.search = options.searchStr;
+        }
         await this.fetchShoesList(this.queryStr);
         this.shoes = this.getShoesList;
       }
@@ -270,7 +272,6 @@
 
     async mounted() {
       await this.queryShoes();
-      this.setPage();
       this.setLoadingState(false);
     },
 
@@ -280,7 +281,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .products__container {
     display: grid;
   }

@@ -1,0 +1,26 @@
+.search__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: .2em;
+  border-bottom: 1px solid $light-color;
+  border-radius: .3em;
+  background-color: $primary-turquoise;
+  padding: .2em;
+  select {
+    cursor: pointer;
+  }
+  input,
+  select {
+    background-color: transparent;
+    //border: 2px solid $primary-turquoise-dark;
+    font-size: 1em;
+    font-weight: 600;
+  }
+  input:hover,
+  input:focus,
+  select:hover,
+  select:focus {
+    background-color: $light-color;
+  }
+}

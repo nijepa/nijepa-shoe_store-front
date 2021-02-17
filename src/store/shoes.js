@@ -57,8 +57,8 @@ const actions = {
   },
 
   async fetchShoesList ({ commit }, queryStr) {
-    console.log(queryStr)
-    const response = await axios.post(URL + "/list?page=2", queryStr);
+    //console.log(queryStr)
+    const response = await axios.post(URL + "/list?page=" + queryStr.pageNr, queryStr);
     commit('setShoesList', response.data);
   },
 
@@ -68,8 +68,9 @@ const actions = {
   },
 
   async fetchShoesPage ({ commit }, nextPage) {
-    console.log(nextPage)
-    const response = await axios.post(nextPage.page, nextPage);
+    const response = await axios.post(URL + "/list?page=" + nextPage.pageNr, nextPage);
+    //const response = await axios.post(nextPage.page, nextPage);
+    console.log(response.data)
     commit('setShoesList', response.data);
   },
 
