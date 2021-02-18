@@ -1,35 +1,57 @@
 <template>
-  <transition name="fall" mode="out-in">
+  <transition name="fall" 
+              mode="out-in">
 
-    <loading v-if="loadingState" key="1" pic="loading" />
+    <loading v-if="loadingState" 
+              key="1" 
+              pic="loading" />
 
-    <div v-else :key="2" class="profile__wrapper">
+    <div v-else 
+          :key="2" 
+          class="profile__wrapper">
       
       <form @submit.prevent="save(shoe)">
 
         <h1>{{ formTitle }}</h1>
 
-        <InputText v-model="shoe.title" :value="shoe.title" name="title" />
+        <InputText v-model="shoe.title" 
+                  :value="shoe.title" 
+                  name="title" />
 
         <div class="form__item">
           <label>
-            <textarea name="desc" id="desc" cols="30" rows="5" placeholder=" "
-                      v-model="shoe.description"></textarea>
+            <textarea name="desc" 
+                      id="desc" 
+                      cols="30" 
+                      rows="5" 
+                      placeholder=" "
+                      v-model="shoe.description">
+            </textarea>
             <span>Description</span>
           </label>
         </div>
         
-        <InputNumber v-model="shoe.price" :value="shoe.price" name="price" step="0.01" />
+        <InputNumber v-model="shoe.price" 
+                    :value="shoe.price" 
+                    name="price" 
+                    step="0.01" />
 
         <InputSelect v-model="shoe.category_id"  
-                    :multi="false" :options="getAllCategories"
-                    name="dd" label="Category" />
+                    :multi="false" 
+                    :options="getAllCategories"
+                    name="dd" 
+                    label="Category" />
         
         <InputSelect v-model="shoe.brand_id"  
-                    :multi="false" :options="getAllBrands"
-                    name="dd" label="Brand" />
+                    :multi="false" 
+                    :options="getAllBrands"
+                    name="dd" 
+                    label="Brand" />
 
-        <InputNumber v-model="shoe.stock" :value="shoe.stock" name="stock" step="1" />
+        <InputNumber v-model="shoe.stock" 
+                    :value="shoe.stock" 
+                    name="stock" 
+                    step="1" />
 
         <ButtonsConfirmation @canceled="cancel" />
 

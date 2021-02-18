@@ -30,11 +30,14 @@
 
         <ul class="list" >
           
-          <li v-for="specific in specifics.data" :key="specific.id" 
+          <li v-for="specific in specifics.data" 
+              :key="specific.id" 
               @click="selectSpecific(specific)"
               class="">
             <div class="list__item_spec">
-              <img :src="getJpgUrl(specific.image)" alt="" class="products__logo">
+              <img :src="getJpgUrl(specific.image)" 
+                    alt="" 
+                    class="products__logo">
               <h3>{{ specific.shoe.title }}</h3>
               <h3>{{ specific.color.name }}</h3>
               <h3>{{ specific.size.number }}</h3>

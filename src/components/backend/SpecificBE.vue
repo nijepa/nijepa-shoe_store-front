@@ -1,9 +1,14 @@
 <template>
-  <transition name="fall" mode="out-in">
+  <transition name="fall" 
+              mode="out-in">
 
-    <loading v-if="loadingState" key="1" pic="loading" />
+    <loading v-if="loadingState" 
+              key="1" 
+              pic="loading" />
 
-    <div v-else :key="2" class="profile__wrapper">
+    <div v-else 
+          :key="2" 
+          class="profile__wrapper">
       
       <form @submit.prevent="save(specific)">
 
@@ -18,23 +23,38 @@
 
         <div class="form__item">
           <label>
-            <textarea name="desc" id="desc" cols="30" rows="5" placeholder=" "
-                      v-model="specific.details"></textarea>
+            <textarea name="desc" 
+                      id="desc" 
+                      cols="30" 
+                      rows="5" 
+                      placeholder=" "
+                      v-model="specific.details">
+            </textarea>
             <span>Description</span>
           </label>
         </div>
         
-        <InputNumber v-model="specific.price" :value="specific.price" name="price" step="0.01" />
+        <InputNumber v-model="specific.price" 
+                      :value="specific.price" 
+                      name="Price" 
+                      step="0.01" />
 
         <InputSelect v-model="specific.color_id"  
-                    :multi="false" :options="getAllColors"
-                    name="dd" label="Color" />
+                    :multi="false" 
+                    :options="getAllColors"
+                    name="dd" 
+                    label="Color" />
         
         <InputSelect v-model="specific.size_id"  
-                    :multi="false" :options="getAllSizes"
-                    name="dd" label="Size" />
+                    :multi="false" 
+                    :options="getAllSizes"
+                    name="dd" 
+                    label="Size" />
 
-        <InputNumber v-model="specific.stock" :value="specific.stock" name="stock" step="1" />
+        <InputNumber v-model="specific.stock" 
+                      :value="specific.stock" 
+                      name="stock" 
+                      step="1" />
 
         <ButtonsConfirmation @canceled="cancel" />
 

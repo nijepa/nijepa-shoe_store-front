@@ -1,7 +1,8 @@
 <template>
   <nav>
 
-    <router-link to="/dashboard" class="brand">
+    <router-link to="/dashboard" 
+                  class="brand">
       <svg width="100px" x="0px" y="0px"
           viewBox="0 0 56.028 56.028" style="enable-background:new 0 0 56.028 56.028;" xml:space="preserve">
         <path fill="#9fc4f5;" d="M19.807,33.223c-0.327,0.04-0.654,0.079-0.981,0.115c-0.549,0.062-0.944,0.557-0.883,1.105
@@ -114,8 +115,12 @@
     </router-link>
 
     <div class="nav__links">
-      <router-link  to="/dashboard">Dashboard</router-link>
-      <router-link  to="/article">Article</router-link>
+      <router-link to="/dashboard">
+        Dashboard
+      </router-link>
+      <router-link to="/article">
+        Article
+      </router-link>
     </div>
 
   </nav>

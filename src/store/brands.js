@@ -3,19 +3,23 @@ const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 
 const  state = {
   brand: {},
-  brands: []
+  brands: [],
+  brandsList: {}
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
 const getters = {
   getAllBrands: state => state.brands,
-  getOneBrand: state => state.brand
+  getOneBrand: state => state.brand,
+  getBrandsList: state => state.brandsList
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
 const mutations = {
 
   setBrands: (state, brands) => (state.brands = brands),
+
+  setBrandsList: (state, brandsList) => (state.brandsList = brandsList),
 
   setBrand: (state, brand) => (state.brand = brand),
 
@@ -48,6 +52,16 @@ const actions = {
   async fetchBrands ({ commit }) {
     const response = await axios.get(URL + "/brands");
     commit('setBrands', response.data);
+  },
+
+  async fetchBrandsList ({ commit }, queryStr) {
+    const response = await axios.post(URL + "/brandslist?page=" + queryStr.pageNr, queryStr);
+    commit('setBrandsList', response.data);
+  },
+
+  async fetchBrandsPage ({ commit }, nextPage) {
+    const response = await axios.post(URL + "/brandslist?page=" + nextPage.pageNr, nextPage);
+    commit('setBrandsList', response.data);
   },
 
   async fetchBrand ({ commit }, brandData) {

@@ -1,7 +1,8 @@
 <template>
   <div class="form__item_select">
     <label>{{ label }}</label>
-    <select :multiple="multi" required
+    <select :multiple="multi" 
+            required
             :value="value"
             @input="$emit('input', Number($event.target.value))">
       <option v-for="option in options"

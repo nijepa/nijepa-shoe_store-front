@@ -3,19 +3,23 @@ const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 
 const  state = {
   color: {},
-  colors: []
+  colors: [],
+  colorsList: {}
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
 const getters = {
   getAllColors: state => state.colors,
-  getOneColor: state => state.color
+  getOneColor: state => state.color,
+  getColorsList: state => state.colorsList
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
 const mutations = {
 
   setColors: (state, colors) => (state.colors = colors),
+
+  setColorsList: (state, colorsList) => (state.colorsList = colorsList),
 
   setColor: (state, color) => (state.color = color),
 
@@ -48,6 +52,16 @@ const actions = {
   async fetchColors ({ commit }) {
     const response = await axios.get(URL + "/colors");
     commit('setColors', response.data);
+  },
+
+  async fetchColorsList ({ commit }, queryStr) {
+    const response = await axios.post(URL + "/colorslist?page=" + queryStr.pageNr, queryStr);
+    commit('setColorsList', response.data);
+  },
+
+  async fetchColorsPage ({ commit }, nextPage) {
+    const response = await axios.post(URL + "/colorslist?page=" + nextPage.pageNr, nextPage);
+    commit('setColorsList', response.data);
   },
 
   async fetchColor ({ commit }, colorData) {

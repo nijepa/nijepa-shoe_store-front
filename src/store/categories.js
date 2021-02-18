@@ -3,19 +3,23 @@ const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 
 const  state = {
   category: {},
-  categories: []
+  categories: [],
+  categoriesList: {}
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
 const getters = {
   getAllCategories: state => state.categories,
-  getOneCategory: state => state.category
+  getOneCategory: state => state.category,
+  getCategoriesList: state => state.categoriesList
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
 const mutations = {
 
   setCategories: (state, categories) => (state.categories = categories),
+
+  setCategoriesList: (state, categoriesList) => (state.categoriesList = categoriesList),
 
   setCategory: (state, category) => (state.category = category),
 
@@ -48,6 +52,16 @@ const actions = {
   async fetchCategories ({ commit }) {
     const response = await axios.get(URL + "/categories");
     commit('setCategories', response.data);
+  },
+
+  async fetchCategoriesList ({ commit }, queryStr) {
+    const response = await axios.post(URL + "/categorieslist?page=" + queryStr.pageNr, queryStr);
+    commit('setCategoriesList', response.data);
+  },
+
+  async fetchCategoriesPage ({ commit }, nextPage) {
+    const response = await axios.post(URL + "/categorieslist?page=" + nextPage.pageNr, nextPage);
+    commit('setCategoriesList', response.data);
   },
 
   async fetchCategory ({ commit }, categoryData) {

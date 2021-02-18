@@ -1,36 +1,59 @@
 <template>
   <section class="products">
 
-    <transition name="fall" mode="out-in">
+    <transition name="fall" 
+                mode="out-in">
 
-      <loading v-if="loadingState" key="1" pic="loading" />
+      <loading v-if="loadingState" 
+                key="1" 
+                pic="loading" />
 
-      <div v-else :key="2" class="list__container">
+      <div v-else 
+            :key="2" 
+            class="list__container">
 
-        <ButtonAdd v-if="!showForm" @added="add" />
+        <ButtonAdd v-if="!showForm" 
+                    @added="add" />
         
-        <form @submit.prevent="save()" v-show="showForm" class="list__modify">
+        <form @submit.prevent="save()" 
+              v-show="showForm" 
+              class="list__modify">
           <h3>{{ formTitle }}</h3>
 
-          <InputText v-model="brand.name" :value="brand.name" name="brand" />
+          <InputText v-model="brand.name" 
+                      :value="brand.name" 
+                      name="brand" />
 
           <ButtonsConfirmation @canceled="cancel" />
 
         </form>
 
+        <Search :str-search="queryStr.search"
+                :nr-pages="queryStr.nr"
+                @items-searched="queryShoes" />
+        
         <ul class="list">
-          <li v-for="brand in brands" :key="brand.id">
+          <li v-for="brand in brands.data" 
+              :key="brand.id">
               <!-- <img :src="getJpgUrl(shoe.image)" alt="" class="products__logo"> -->
             <div class="list__item">
               <h3 @click="selectBrand(brand)">{{ brand.name }}</h3>
             </div>
 
-            <ButtonRemove :item="brand" @removed="remove(brand)" />
+            <ButtonRemove :item="brand" 
+                          @removed="remove(brand)" />
 
           </li>
         </ul>
 
+        <Pager :links="brands.links"
+              :currentPage="brands.current_page"
+              :firstPage="brands.first_page_url"
+              :lastPage="brands.last_page_url"
+              @pageChanged="changePage" />
+
       </div>
+
     </transition>
   </section>
 </template>
@@ -42,6 +65,8 @@
   import ButtonAdd from '@/components/backend/partials/_ButtonAdd.vue';
   import ButtonRemove from '@/components/backend/partials/_ButtonRemove.vue';
   import InputText from '@/components/backend/partials/_InputText.vue';
+  import Pager from '@/components/backend/partials/_Pager.vue';
+  import Search from '@/components/backend/partials/_Search.vue';
   import loadingM from '../../mixins/loading';
   import imageUrl from '../../mixins/imageUrl';
 
@@ -57,7 +82,9 @@
       ButtonsConfirmation,
       ButtonAdd,
       ButtonRemove,
-      InputText
+      InputText,
+      Pager,
+      Search
     },
 
     mixins: [
@@ -75,13 +102,21 @@
         dataType: 'getAll' + this.msg + 's',
         currentPage: 0,
         lastPage: 0,
-        nextPage: null
+        nextPage: null,
+        queryStr: {
+          nr: 5,
+          col: 'name',
+          order: 'asc',
+          search: '',
+          pageNr: 1
+        }
       }
     },
 
     computed: {
       ...mapGetters([ 'getAllBrands', 
-                      'getOneBrand' ]),
+                      'getOneBrand',
+                      'getBrandsList' ]),
 
       formTitle: function () { 
         return this.brand.name ? 'Edit' : 'Add'
@@ -91,11 +126,22 @@
     methods: {
       ...mapActions([ 'fetchBrands', 
                       'fetchBrand',
+                      'fetchBrandsList',
+                      'fetchBrandsPage',
                       'brandAdd',
                       'brandDelete',
                       'brandUpdate',
                       'brandClear',
                       'setActiveComponent' ]),
+
+      async changePage(page) {
+        if (page) {
+          let pageNr = page.slice(page.indexOf('=') + 1, page.length);
+          this.queryStr.pageNr = pageNr;
+          await this.fetchColorsPage(this.queryStr);
+          this.brands = this.getBrandsList;
+        }
+      },
 
       async selectBrand(item) {
         await this.fetchBrand(item);
@@ -130,16 +176,23 @@
         this.brands = this.getAllBrands;
       },
 
-      setPage() {
-        this.currentPage = this.getAllShoes.current_page;
-        this.lastPage = this.getAllShoes.last_page;
-        this.nextPage = this.getAllShoes.next_page_url;
+      async queryShoes(options = '') {
+        if (options) {
+          if (this.getBrandsList.total / options.nr < this.brands.current_page) {
+            this.queryStr.pageNr = Math.floor(this.getBrandsList.total / options.nr);
+          } 
+          this.queryStr.nr = options.nr;
+          this.queryStr.search = options.searchStr;
+        }
+        await this.fetchBrandsList(this.queryStr);
+        this.brands = this.getBrandsList;
       }
     },
 
     async mounted() {
-      await this.fetchBrands();
-      this.brands = this.getAllBrands;
+      await this.queryShoes();
+/*       await this.fetchBrands();
+      this.brands = this.getAllBrands; */
       //this.setPage();
       this.setLoadingState(false);
     },

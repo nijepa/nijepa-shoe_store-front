@@ -23,7 +23,8 @@
       </svg>
       Save
     </button>
-    <button type="submit" @click.prevent="cancel()">
+    <button type="submit" 
+            @click.prevent="cancel()">
       <svg width="30px" x="0px" y="0px"
           viewBox="0 0 512.003 512.003" style="enable-background:new 0 0 512.003 512.003;" xml:space="preserve">
         <polygon fill="#51cbe9;" points="256.001,158.605 114.833,17.437 17.437,114.83 158.605,256 17.437,397.17 114.833,494.563 

@@ -3,19 +3,23 @@ const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 
 const  state = {
   size: {},
-  sizes: []
+  sizes: [],
+  sizesList: {}
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
 const getters = {
   getAllSizes: state => state.sizes,
-  getOneSize: state => state.size
+  getOneSize: state => state.size,
+  getSizesList: state => state.sizesList
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
 const mutations = {
 
   setSizes: (state, sizes) => (state.sizes = sizes),
+
+  setSizesList: (state, sizesList) => (state.sizesList = sizesList),
 
   setSize: (state, size) => (state.size = size),
 
@@ -48,6 +52,16 @@ const actions = {
   async fetchSizes ({ commit }) {
     const response = await axios.get(URL + "/sizes");
     commit('setSizes', response.data);
+  },
+
+  async fetchSizesList ({ commit }, queryStr) {
+    const response = await axios.post(URL + "/sizeslist?page=" + queryStr.pageNr, queryStr);
+    commit('setSizesList', response.data);
+  },
+
+  async fetchSizesPage ({ commit }, nextPage) {
+    const response = await axios.post(URL + "/sizeslist?page=" + nextPage.pageNr, nextPage);
+    commit('setSizesList', response.data);
   },
 
   async fetchSize ({ commit }, sizeData) {

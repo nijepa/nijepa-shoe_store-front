@@ -1,7 +1,11 @@
 <template>
   <div class="form__item">
     <label>
-      <input type="text" :name="name" :id="name" required placeholder=" "
+      <input type="text" 
+            :name="name" 
+            :id="name" 
+            required 
+            placeholder=" "
             :value="value"
             @input="$emit('input', $event.target.value)">
       <span>{{ name }}</span>

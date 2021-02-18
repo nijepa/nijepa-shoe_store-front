@@ -56,10 +56,12 @@
       },
 
       getPageNr(url) {
+        if (url) {
         const start = url.indexOf('=');
         const duz = url.length;
 
         return url.slice(start + 1, duz);
+        }
       },
 
       linkLabel(lab) {

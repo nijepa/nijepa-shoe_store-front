@@ -1,37 +1,60 @@
 <template>
   <section class="products">
 
-    <transition name="fall" mode="out-in">
+    <transition name="fall" 
+                mode="out-in">
 
-      <loading v-if="loadingState" key="1" pic="loading" />
+      <loading v-if="loadingState" 
+              key="1" 
+              pic="loading" />
 
-      <div v-else :key="2" class="list__container">
+      <div v-else 
+          :key="2" 
+          class="list__container">
 
-        <ButtonAdd v-if="!showForm" @added="add" />
+        <ButtonAdd v-if="!showForm" 
+                    @added="add" />
         
-        <form @submit.prevent="save()" v-show="showForm" class="list__modify">
+        <form @submit.prevent="save()" 
+              v-show="showForm" 
+              class="list__modify">
           <h3>{{ formTitle }}</h3>
 
-          <InputText v-model="size.number" :value="size.number" name="size" />
+          <InputText v-model="size.number" 
+                    :value="size.number" 
+                    name="size" />
 
           <ButtonsConfirmation @canceled="cancel" />
 
         </form>
 
+        <Search :str-search="queryStr.search"
+                :nr-pages="queryStr.nr"
+                @items-searched="queryShoes" />
+
         <ul class="list" >
           
-          <li v-for="size in sizes" :key="size.id">
+          <li v-for="size in sizes.data" 
+              :key="size.id">
               <!-- <img :src="getJpgUrl(shoe.image)" alt="" class="products__logo"> -->
             <div class="list__item">
               <h3 @click="selectSize(size)">{{ size.number }}</h3>
             </div>
 
-            <ButtonRemove :item="size" @removed="remove(size)" />
+            <ButtonRemove :item="size" 
+                          @removed="remove(size)" />
 
           </li>
         </ul>
 
+        <Pager :links="sizes.links"
+              :currentPage="sizes.current_page"
+              :firstPage="sizes.first_page_url"
+              :lastPage="sizes.last_page_url"
+              @pageChanged="changePage" />
+
       </div>
+
     </transition>
   </section>
 </template>
@@ -43,6 +66,8 @@
   import ButtonAdd from '@/components/backend/partials/_ButtonAdd.vue';
   import ButtonRemove from '@/components/backend/partials/_ButtonRemove.vue';
   import InputText from '@/components/backend/partials/_InputText.vue';
+  import Pager from '@/components/backend/partials/_Pager.vue';
+  import Search from '@/components/backend/partials/_Search.vue';
   import loadingM from '../../mixins/loading';
   import imageUrl from '../../mixins/imageUrl';
 
@@ -58,13 +83,14 @@
       ButtonsConfirmation,
       ButtonAdd,
       ButtonRemove,
-      InputText
+      InputText,
+      Pager,
+      Search
     },
 
     mixins: [
       loadingM,
-      imageUrl,
-      ButtonsConfirmation
+      imageUrl
     ],
 
     data() {
@@ -74,15 +100,20 @@
           number: ''
         },
         showForm: false,
-        currentPage: 0,
-        lastPage: 0,
-        nextPage: null
+        queryStr: {
+          nr: 5,
+          col: 'number',
+          order: 'asc',
+          search: '',
+          pageNr: 1
+        }
       }
     },
 
     computed: {
       ...mapGetters([ 'getAllSizes', 
-                      'getOneSize' ]),
+                      'getOneSize',
+                      'getSizesList' ]),
 
       formTitle: function () { 
         return this.size.number ? 'Edit' : 'Add'
@@ -92,11 +123,22 @@
     methods: {
       ...mapActions([ 'fetchSizes', 
                       'fetchSize',
+                      'fetchSizesList',
+                      'fetchSizesPage',
                       'sizeAdd',
                       'sizeDelete',
                       'sizeUpdate',
                       'sizeClear',
                       'setActiveComponent' ]),
+
+      async changePage(page) {
+        if (page) {
+          let pageNr = page.slice(page.indexOf('=') + 1, page.length);
+          this.queryStr.pageNr = pageNr;
+          await this.fetchSizesPage(this.queryStr);
+          this.sizes = this.getSizesList;
+        }
+      },
 
       async selectSize(item) {
         await this.fetchSize(item);
@@ -131,16 +173,23 @@
         this.sizes = this.getAllSizes;
       },
 
-      setPage() {
-        this.currentPage = this.getAllShoes.current_page;
-        this.lastPage = this.getAllShoes.last_page;
-        this.nextPage = this.getAllShoes.next_page_url;
+      async queryShoes(options = '') {
+        if (options) {
+          if (this.getSizesList.total / options.nr < this.sizes.current_page) {
+            this.queryStr.pageNr = Math.floor(this.getSizesList.total / options.nr);
+          } 
+          this.queryStr.nr = options.nr;
+          this.queryStr.search = options.searchStr;
+        }
+        await this.fetchSizesList(this.queryStr);
+        this.sizes = this.getSizesList;
       }
     },
 
     async mounted() {
-      await this.fetchSizes();
-      this.sizes = this.getAllSizes;
+      await this.queryShoes();
+/*       await this.fetchSizes();
+      this.sizes = this.getAllSizes; */
       //this.setPage();
       this.setLoadingState(false);
     },
