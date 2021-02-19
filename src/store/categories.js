@@ -28,20 +28,20 @@ const mutations = {
   },
 
   addCategory(state, newCategory) {
-    state.categories = [newCategory, ...state.categories]
+    state.categoriesList.data = [newCategory, ...state.categoriesList.data]
   },
 
   updateCategory(state, updatedCategory) {
-    state.categories = [
-      ...state.categories.map(item => 
+    state.categoriesList.data = [
+      ...state.categoriesList.data.map(item => 
           item.id !== updatedCategory.id ? item : {...item, ...updatedCategory}
       )
     ] 
   },
 
   deleteCategory (state, id) {
-    state.categories = [
-      ...state.categories.filter((item) => item.id !== id)
+    state.categoriesList.data = [
+      ...state.categoriesList.data.filter((item) => item.id !== id)
     ];
   }, 
 };

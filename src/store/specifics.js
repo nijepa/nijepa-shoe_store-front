@@ -32,8 +32,8 @@ const mutations = {
   },
 
   updateSpecific(state, updatedSpecific) {
-    state.specifics = [
-      ...state.specifics.map(item => 
+    state.specifics.data = [
+      ...state.specifics.data.map(item => 
           item.id !== updatedSpecific.id ? item : {...item, ...updatedSpecific}
       )
     ] 

@@ -34,8 +34,8 @@ const mutations = {
   },
 
   updateShoe(state, updatedShoe) {
-    state.shoesList = [
-      ...state.shoesList.map(item => 
+    state.shoesList.data = [
+      ...state.shoesList.data.map(item => 
           item.id !== updatedShoe.id ? item : {...item, ...updatedShoe}
       )
     ] 

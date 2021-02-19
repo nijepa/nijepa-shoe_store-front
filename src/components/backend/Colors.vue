@@ -154,7 +154,7 @@
           console.log(item)
           await this.colorAdd(item);
         }
-        this.colors = this.getAllColors;
+        this.colors = this.getColorsList;
         this.cancel();
       },
 
@@ -171,7 +171,7 @@
       async remove(item) {
         await this.colorDelete(item);
         //await this.colorClear();
-        this.colors = this.getAllColors;
+        this.colors = this.getColorsList;
       },
 
       async queryShoes(options = '') {

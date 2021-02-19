@@ -28,20 +28,20 @@ const mutations = {
   },
 
   addBrand(state, newBrand) {
-    state.brands = [newBrand, ...state.brands]
+    state.brandsList.data = [newBrand, ...state.brandsList.data]
   },
 
   updateBrand(state, updatedBrand) {
-    state.brands = [
-      ...state.brands.map(item => 
+    state.brandsList.data = [
+      ...state.brandsList.data.map(item => 
           item.id !== updatedBrand.id ? item : {...item, ...updatedBrand}
       )
     ] 
   },
 
   deleteBrand (state, id) {
-    state.brands = [
-      ...state.brands.filter((item) => item.id !== id)
+    state.brandsList.data = [
+      ...state.brandsList.data.filter((item) => item.id !== id)
     ];
   }, 
 };

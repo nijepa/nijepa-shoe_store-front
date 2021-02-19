@@ -152,7 +152,7 @@
         } else {
           await this.categoryAdd(item);
         }
-        this.categories = this.getAllCategories;
+        this.categories = this.getCategoriesList;
         this.cancel();
       },
 
@@ -169,7 +169,7 @@
       async remove(item) {
         await this.categoryDelete(item);
         //await this.categoryClear();
-        this.categories = this.getAllCategories;
+        this.categories = this.getCategoriesList;
       },
 
       async queryShoes(options = '') {

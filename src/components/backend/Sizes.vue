@@ -153,7 +153,7 @@
           console.log(item)
           await this.sizeAdd(item);
         }
-        this.sizes = this.getAllSizes;
+        this.sizes = this.getSizesList;
         this.cancel();
       },
 
@@ -170,7 +170,7 @@
       async remove(item) {
         await this.sizeDelete(item);
         //await this.sizeClear();
-        this.sizes = this.getAllSizes;
+        this.sizes = this.getSizesList;
       },
 
       async queryShoes(options = '') {

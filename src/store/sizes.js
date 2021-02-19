@@ -28,20 +28,20 @@ const mutations = {
   },
 
   addSize(state, newSize) {
-    state.sizes = [newSize, ...state.sizes]
+    state.sizesList.data = [newSize, ...state.sizesList.data]
   },
 
   updateSize(state, updatedSize) {
-    state.sizes = [
-      ...state.sizes.map(item => 
+    state.sizesList.data = [
+      ...state.sizesList.data.map(item => 
           item.id !== updatedSize.id ? item : {...item, ...updatedSize}
       )
     ] 
   },
 
   deleteSize (state, id) {
-    state.sizes = [
-      ...state.sizes.filter((item) => item.id !== id)
+    state.sizesList.data = [
+      ...state.sizesList.data.filter((item) => item.id !== id)
     ];
   }, 
 };

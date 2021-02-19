@@ -28,20 +28,20 @@ const mutations = {
   },
 
   addColor(state, newColor) {
-    state.colors = [newColor, ...state.colors]
+    state.colorsList.data = [newColor, ...state.colorsList.data]
   },
 
   updateColor(state, updatedColor) {
-    state.colors = [
-      ...state.colors.map(item => 
+    state.colorsList.data = [
+      ...state.colorsList.data.map(item => 
           item.id !== updatedColor.id ? item : {...item, ...updatedColor}
       )
     ] 
   },
 
   deleteColor (state, id) {
-    state.colors = [
-      ...state.colors.filter((item) => item.id !== id)
+    state.colorsList.data = [
+      ...state.colorsList.data.filter((item) => item.id !== id)
     ];
   }, 
 };

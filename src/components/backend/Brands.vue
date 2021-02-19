@@ -156,7 +156,7 @@
           console.log(item)
           await this.brandAdd(item);
         }
-        this.brands = this.getAllBrands;
+        this.brands = this.getBrandsList;
         this.cancel();
       },
 
@@ -173,7 +173,7 @@
       async remove(item) {
         await this.brandDelete(item);
         //await this.brandClear();
-        this.brands = this.getAllBrands;
+        this.brands = this.getBrandsList;
       },
 
       async queryShoes(options = '') {
