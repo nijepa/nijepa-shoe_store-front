@@ -2,7 +2,8 @@ const state = {
   loading: true,
   errors: [],
   activeComponent: false,
-  selectedLink: ''
+  selectedLink: '',
+  selectedMenu: ''
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
@@ -10,6 +11,7 @@ const getters = {
   loadingState: state => state.loading,
   getActiveComponent: state => state.activeComponent,
   getSelectedLink: state => state.selectedLink,
+  getSelectedMenu: state => state.selectedMenu,
   getErrors: state => state.errors
 };
 
@@ -25,6 +27,10 @@ const mutations = {
 
   changeSelectedLink(state, selectedLink) {
     state.selectedLink = selectedLink;
+  },
+
+  changeSelectedMenu(state, selectedMenu) {
+    state.selectedMenu = selectedMenu;
   },
 
   setErrors(state, errors) {
@@ -44,6 +50,10 @@ const actions = {
 
   setSelectedLink({ commit }, selectedLink) {
     commit('changeSelectedLink', selectedLink);
+  },
+
+  setSelectedMenu({ commit }, selectedMenu) {
+    commit('changeSelectedMenu', selectedMenu);
   },
 
   clearErrors({ commit }) {
