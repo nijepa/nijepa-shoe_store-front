@@ -1,7 +1,7 @@
 button {
   background: $primary-turquoise;
   border-radius: .2em;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   margin: .5em 0;
   padding: .5em;
   font-family: $font-code;
@@ -11,7 +11,10 @@ button {
   text-transform: uppercase;
   letter-spacing: .2em;
   justify-self: center;
-  transition: all .3s ease-in-out;
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(219, 17, 226,0.75);
+  -moz-box-shadow: 0px 0px 3px 1px rgba(219, 17, 226,0.75);
+  box-shadow: 0px 0px 3px 1px rgba(219, 17, 226,0.75);
+  transition: all .4s ease-in-out;
   cursor: pointer;
 
   svg {
@@ -26,6 +29,9 @@ button:hover {
   //background-color: $blue-main;
   background: radial-gradient($primary-turquoise, $secondary-cyclamen-light);
   color: $secondary-cyclamen-dark;
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(81,203,233,0.75);
+  -moz-box-shadow: 0px 0px 0px 0px rgba(81,203,233,0.75);
+  box-shadow: 0px 0px 0px 0px rgba(81,203,233,0.75);
   //border: 2px solid $primary-turquoise-dark;
 
   svg {

@@ -119,7 +119,7 @@
       </router-link>
       <router-link  to="/about">Orders</router-link>
       <router-link  to="/dashboard">Dashboard</router-link>
-      <router-link  to="/article">Article</router-link>
+      <router-link  to="/login">Login</router-link>
     </div>
     
     <cart />

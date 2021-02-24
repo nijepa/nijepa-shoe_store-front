@@ -1,35 +1,35 @@
 import axios from 'axios';
-const URL = process.env.VUE_APP_BACKEND_URL;
+const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
 import apiClient from './api_client';
 import * as ls from './local_storage';
 import router from '../router';
 
-
-const  state = {
+/* -------------------------------------- STATE -------------------------------------- */
+const state = {
   authKey: '',
   user: {},
   users: [],
   selectedUser: {},
   logged: false,
-  loading: true,
+  //loading: true,
   inputType: '',
-  errors: []
+  //errors: []
 };
 
 /* -------------------------------------- GETTERS -------------------------------------- */
-const  getters = {
+const getters = {
   getAuthKey: state => state.authKey,
   allUsers: state => state.users,
   loggedUser: state => state.user,
-  loadingState: state => state.loading,
+  //loadingState: state => state.loading,
   isLogged: state => state.logged,
   getInputType: state => state.inputType,
-  getErrors: state => state.errors,
+  //getErrors: state => state.errors,
   getSelectedUser: state => state.selectedUser
 };
 
 /* -------------------------------------- MUTATIONS -------------------------------------- */
-const  mutations = {
+const mutations = {
   setToken: (state, authKey) => (state.authKey = authKey),
 
   setUsers: (state, users) => (state.users = users),
@@ -56,9 +56,9 @@ const  mutations = {
     state.logged = logged;
   },
 
-  setErrors(state, errors) {
-    state.errors = errors;
-  },
+  // setErrors(state, errors) {
+  //   state.errors = errors;
+  // },
 };
 
 /* -------------------------------------- ACTIONS -------------------------------------- */
@@ -95,7 +95,7 @@ const actions = {
   },
 
   async login({commit}, loginData) {
-    await axios.post(URL + 'users/login', loginData)
+    await axios.post(URL + '/login', loginData)
       .then((response) => {
         ls.saveToken(response.data);
         commit('setUser', response.data.user);
@@ -161,9 +161,9 @@ const actions = {
       })
   },
 
-  clearErrors({ commit }) {
-    commit('setErrors', [])
-  }
+  // clearErrors({ commit }) {
+  //   commit('setErrors', [])
+  // }
 };
 
 export default {

@@ -1,5 +1,6 @@
 import axios from 'axios';
 const URL = process.env.VUE_APP_BACKEND_URL_LOCAL;
+import apiClient from './api_client';
 
 const state = {
   shoe: {},
@@ -52,7 +53,7 @@ const mutations = {
 const actions = {
 
   async fetchShoes ({ commit }) {
-    const response = await axios.get(URL + "/shoes");
+    const response = await apiClient.get(URL + "/shoes");
     commit('setShoes', response.data);
   },
 
@@ -62,7 +63,7 @@ const actions = {
   },
 
   async fetchNextShoes ({ commit }, nextPage) {
-    const response = await axios.get(nextPage);
+    const response = await apiClient.get(nextPage);
     commit('setShoes', response.data);
   },
 

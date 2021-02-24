@@ -8,6 +8,7 @@ import colors from './colors';
 import sizes from './sizes';
 import cart from './cart';
 import utils from './utils';
+import users from './users';
 
 Vue.use(Vuex);
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     colors,
     sizes,
     cart,
-    utils
+    utils,
+    users
   }
 })

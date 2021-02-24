@@ -1,7 +1,7 @@
 <template>
   <div class="form__item">
     <label>
-      <input type="text" 
+      <input :type="type" 
             :name="name" 
             :id="name" 
             required 
@@ -17,6 +17,6 @@
   export default {
     name: 'TextInput',
 
-    props: {value: String, name: String} ,
+    props: {value: String, name: String, type: String} ,
   }
 </script>
