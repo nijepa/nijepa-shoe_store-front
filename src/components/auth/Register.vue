@@ -4,6 +4,10 @@
       <form @submit.prevent="logger()">
 
         <!-- <h1>{{ formTitle }}</h1> -->
+        <InputText v-model="loginInput.username" 
+                  :value="loginInput.username" 
+                  name="username"
+                  type="text" />
 
         <InputText v-model="loginInput.email" 
                   :value="loginInput.email" 
@@ -49,7 +53,10 @@
         type: 'login',
         loginInput: {
           email: '',
-          password: ''
+          password: '',
+          username: '',
+          firstName: '',
+          lastName: ''
         },
         user: {},
       }
